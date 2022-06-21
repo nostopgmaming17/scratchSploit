@@ -1,0 +1,1 @@
+f=(n,v)=>{_=[];for(let i = 0;i < getglobal(n).length;i++){_[i]=v};setglobal(n,_)};f("Backpacks.price",0);f("Backpacks.space",Infinity);f("Pickaxe.price",0);f("Pickaxe.speed",Infinity);f("Upgrades.health.ArmorPrice",0);f("Upgrades.health",Infinity);
