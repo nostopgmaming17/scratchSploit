@@ -2,4 +2,4 @@
 scratch exploit
 
 go to chrome://extensinos enable Developer mode
-load unpacked
+and load load unpacked the folder
