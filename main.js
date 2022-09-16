@@ -61,35 +61,38 @@ var code = '(' + function() {
     };
     window.getglobal = function(n) {
         for(let i in vm.runtime.targets[0].variables) {
-            if (vm.runtime.targets[0].variables[i].name == n) {return vm.runtime.targets[0].variables[i].value}
+            if (vm.runtime.targets[0].variables[i].name == n) {
+                return vm.runtime.targets[0].variables[i].value;
+            }
         }
         return false
     };
     window.setlocal = function(s,n,v) {
-        let sid;
+        let spr;
         if (typeof(s) == "string") {
-            sid = getspriteid(s);
+            spr = getsprite(s);
         } else {
-            for (let i in vm.runtime.targets) {
-                if (vm.runtime.targets[i].getName() == s) sid = i;
-            };
+            spr = s;
         };
-        for (let id in vm.runtime.targets[sid].variables) {
-            if (vm.runtime.targets[sid].variables[id].name == n) {vm.setVariableValue(vm.runtime.targets[sid].id,id,v);return true};
+        for (let id in spr.variables) {
+            if (spr.variables[id].name == n) {
+                vm.setVariableValue(spr.id,id,v);
+                return true;
+            };
         };
         return false
     };
     window.getlocal = function(s,n) {
-        let sid;
+        let spr;
         if (typeof(s) == "string") {
-            sid = getspriteid(s);
+            spr = getsprite(s);
         } else {
-            for (let i in vm.runtime.targets) {
-                if (vm.runtime.targets[i].getName() == s) sid = i;
-            };
+            spr = s;
         }; 
-        for (let id in vm.runtime.targets[sid].variables) {
-            if (vm.runtime.targets[sid].variables[id].name == n) {return vm.runtime.targets[sid].variables[id].value};
+        for (let id in spr.variables) {
+            if (spr.variables[id].name == n) {
+                return spr.variables[id].value;
+            };
         };
         return false;
     };
@@ -133,8 +136,8 @@ var code = '(' + function() {
     window.mouse = function(C) {
         if (!C) {
             let d = vm.runtime.ioDevices.mouse._isDown,
-                x = vm.runtime.ioDevices.mouse._x,
-                y = vm.runtime.ioDevices.mouse._y;
+                x = vm.runtime.ioDevices.mouse._scratchX,
+                y = vm.runtime.ioDevices.mouse._scratchY;
             return {
                 d: d,
                 D: d,
@@ -146,8 +149,8 @@ var code = '(' + function() {
             }
         }
         let s = getRectSize();
-        let x = C.x || C.X || vm.runtime.ioDevices.mouse._x,
-            y = C.y || C.Y || vm.runtime.ioDevices.mouse._y,
+        let x = C.x || C.X || vm.runtime.ioDevices.mouse._scratchX,
+            y = C.y || C.Y || vm.runtime.ioDevices.mouse._scratchY,
             d = C.down || C.d || C.D || vm.runtime.ioDevices.mouse._isDown;
         vm.postIOData("mouse",{
             x: x,

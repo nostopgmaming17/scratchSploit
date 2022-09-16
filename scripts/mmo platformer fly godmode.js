@@ -846,7 +846,7 @@
         firstload = true;
         broadcast("START");
     });
-    vm.runtime.emit("PROJECT_CHANGED");
+    setInterval(()=>{setlocal("Game","clock",1)},0);
     window.tp = function(p) {
         let plrs = vm.runtime.targets[4].sprite.clones;
         for (let i in plrs) {
