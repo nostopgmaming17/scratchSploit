@@ -1,6 +1,278 @@
 (()=>{
     vm.runtime.targets[1].createVariable("$speed","speed","");
     const code = {
+        "=}zEiv0%M:$Vpy94U[I5": {
+            "id": "=}zEiv0%M:$Vpy94U[I5",
+            "opcode": "event_whenkeypressed",
+            "inputs": {},
+            "fields": {
+                "KEY_OPTION": {
+                    "name": "KEY_OPTION",
+                    "value": "f"
+                }
+            },
+            "next": "Tl%_*E%X=h[|aU+BnGW~",
+            "topLevel": true,
+            "parent": null,
+            "shadow": false,
+            "x": 289,
+            "y": 777
+        },
+        "Tl%_*E%X=h[|aU+BnGW~": {
+            "id": "Tl%_*E%X=h[|aU+BnGW~",
+            "opcode": "sensing_askandwait",
+            "inputs": {
+                "QUESTION": {
+                    "name": "QUESTION",
+                    "block": "BkRxLr7C!n857`rNH/r-",
+                    "shadow": "BkRxLr7C!n857`rNH/r-"
+                }
+            },
+            "fields": {},
+            "next": "KHQXV#0TH~w6hXD@D_Li",
+            "topLevel": false,
+            "parent": "=}zEiv0%M:$Vpy94U[I5",
+            "shadow": false
+        },
+        "BkRxLr7C!n857`rNH/r-": {
+            "id": "BkRxLr7C!n857`rNH/r-",
+            "opcode": "text",
+            "inputs": {},
+            "fields": {
+                "TEXT": {
+                    "name": "TEXT",
+                    "value": "FLY SPEED"
+                }
+            },
+            "next": null,
+            "topLevel": false,
+            "parent": "Tl%_*E%X=h[|aU+BnGW~",
+            "shadow": true
+        },
+        "KHQXV#0TH~w6hXD@D_Li": {
+            "id": "KHQXV#0TH~w6hXD@D_Li",
+            "opcode": "control_if",
+            "inputs": {
+                "CONDITION": {
+                    "name": "CONDITION",
+                    "block": "m9=Ys#^tk+4vg0VOF8hM",
+                    "shadow": null
+                },
+                "SUBSTACK": {
+                    "name": "SUBSTACK",
+                    "block": "W;}^}`bUU,%+#3jUm#],",
+                    "shadow": null
+                }
+            },
+            "fields": {},
+            "next": null,
+            "topLevel": false,
+            "parent": "Tl%_*E%X=h[|aU+BnGW~",
+            "shadow": false
+        },
+        "m9=Ys#^tk+4vg0VOF8hM": {
+            "id": "m9=Ys#^tk+4vg0VOF8hM",
+            "opcode": "operator_not",
+            "inputs": {
+                "OPERAND": {
+                    "name": "OPERAND",
+                    "block": "W(l}i)=tPdT5i8hT-rj@",
+                    "shadow": null
+                }
+            },
+            "fields": {},
+            "next": null,
+            "topLevel": false,
+            "parent": "KHQXV#0TH~w6hXD@D_Li",
+            "shadow": false
+        },
+        "W(l}i)=tPdT5i8hT-rj@": {
+            "id": "W(l}i)=tPdT5i8hT-rj@",
+            "opcode": "operator_equals",
+            "inputs": {
+                "OPERAND1": {
+                    "name": "OPERAND1",
+                    "block": "0IL![bnOJ$b`g:TT_cQB",
+                    "shadow": "Tr)_y!C9l8h=ACdmxTZ/"
+                },
+                "OPERAND2": {
+                    "name": "OPERAND2",
+                    "block": "i_uGN3yT~Ph`0]g[|+0?",
+                    "shadow": "i_uGN3yT~Ph`0]g[|+0?"
+                }
+            },
+            "fields": {},
+            "next": null,
+            "topLevel": false,
+            "parent": "m9=Ys#^tk+4vg0VOF8hM",
+            "shadow": false
+        },
+        "0IL![bnOJ$b`g:TT_cQB": {
+            "id": "0IL![bnOJ$b`g:TT_cQB",
+            "opcode": "sensing_answer",
+            "inputs": {},
+            "fields": {},
+            "next": null,
+            "topLevel": false,
+            "parent": "W(l}i)=tPdT5i8hT-rj@",
+            "shadow": false
+        },
+        "Tr)_y!C9l8h=ACdmxTZ/": {
+            "id": "Tr)_y!C9l8h=ACdmxTZ/",
+            "opcode": "text",
+            "inputs": {},
+            "fields": {
+                "TEXT": {
+                    "name": "TEXT",
+                    "value": ""
+                }
+            },
+            "next": null,
+            "topLevel": false,
+            "parent": "W(l}i)=tPdT5i8hT-rj@",
+            "shadow": true
+        },
+        "i_uGN3yT~Ph`0]g[|+0?": {
+            "id": "i_uGN3yT~Ph`0]g[|+0?",
+            "opcode": "text",
+            "inputs": {},
+            "fields": {
+                "TEXT": {
+                    "name": "TEXT",
+                    "value": ""
+                }
+            },
+            "next": null,
+            "topLevel": false,
+            "parent": "W(l}i)=tPdT5i8hT-rj@",
+            "shadow": true
+        },
+        "W;}^}`bUU,%+#3jUm#],": {
+            "id": "W;}^}`bUU,%+#3jUm#],",
+            "opcode": "data_setvariableto",
+            "inputs": {
+                "VALUE": {
+                    "name": "VALUE",
+                    "block": "}6b1lY{Mj`#m=4XpLqTB",
+                    "shadow": ")fb3dsGGEt_}3I|;EuDY"
+                }
+            },
+            "fields": {
+                "VARIABLE": {
+                    "name": "VARIABLE",
+                    "id": "$speed",
+                    "value": "speed",
+                    "variableType": ""
+                }
+            },
+            "next": null,
+            "topLevel": false,
+            "parent": "KHQXV#0TH~w6hXD@D_Li",
+            "shadow": false
+        },
+        "}6b1lY{Mj`#m=4XpLqTB": {
+            "id": "}6b1lY{Mj`#m=4XpLqTB",
+            "opcode": "sensing_answer",
+            "inputs": {},
+            "fields": {},
+            "next": null,
+            "topLevel": false,
+            "parent": "W;}^}`bUU,%+#3jUm#],",
+            "shadow": false
+        },
+        ")fb3dsGGEt_}3I|;EuDY": {
+            "id": ")fb3dsGGEt_}3I|;EuDY",
+            "opcode": "text",
+            "inputs": {},
+            "fields": {
+                "TEXT": {
+                    "name": "TEXT",
+                    "value": "0"
+                }
+            },
+            "next": null,
+            "topLevel": false,
+            "parent": "W;}^}`bUU,%+#3jUm#],",
+            "shadow": true,
+            "x": "467.93745422363276",
+            "y": "945"
+        },
+        "T`h6QjXtV`cB?1z4M:rF": {
+            "id": "T`h6QjXtV`cB?1z4M:rF",
+            "opcode": "event_whenbroadcastreceived",
+            "inputs": {},
+            "fields": {
+                "BROADCAST_OPTION": {
+                    "name": "BROADCAST_OPTION",
+                    "id": "JFC%GL]Ka.(v{G,Qp~Xh",
+                    "value": "LOAD",
+                    "variableType": "broadcast_msg"
+                }
+            },
+            "next": "*9W?lmu@:g0my%9cAWSB",
+            "topLevel": true,
+            "parent": null,
+            "shadow": false,
+            "x": 302,
+            "y": 29
+        },
+        "*9W?lmu@:g0my%9cAWSB": {
+            "id": "*9W?lmu@:g0my%9cAWSB",
+            "opcode": "data_setvariableto",
+            "inputs": {
+                "VALUE": {
+                    "name": "VALUE",
+                    "block": "B~D2UTt2ZRO@k_bR$!js",
+                    "shadow": "B~D2UTt2ZRO@k_bR$!js"
+                }
+            },
+            "fields": {
+                "VARIABLE": {
+                    "name": "VARIABLE",
+                    "id": "$speed",
+                    "value": "speed",
+                    "variableType": ""
+                }
+            },
+            "next": null,
+            "topLevel": false,
+            "parent": "T`h6QjXtV`cB?1z4M:rF",
+            "shadow": false
+        },
+        "B~D2UTt2ZRO@k_bR$!js": {
+            "id": "B~D2UTt2ZRO@k_bR$!js",
+            "opcode": "text",
+            "inputs": {},
+            "fields": {
+                "TEXT": {
+                    "name": "TEXT",
+                    "value": "1"
+                }
+            },
+            "next": null,
+            "topLevel": false,
+            "parent": "*9W?lmu@:g0my%9cAWSB",
+            "shadow": true
+        },
+        "Z5.G1buNEo}d$9N%]JeQ": {
+            "id": "Z5.G1buNEo}d$9N%]JeQ",
+            "opcode": "event_whenbroadcastreceived",
+            "inputs": {},
+            "fields": {
+                "BROADCAST_OPTION": {
+                    "name": "BROADCAST_OPTION",
+                    "id": "EmRV]n$Ek(aIb/haC#w^",
+                    "value": "START",
+                    "variableType": "broadcast_msg"
+                }
+            },
+            "next": "V(NnjMVB|+s{8WBW+X1I",
+            "topLevel": true,
+            "parent": null,
+            "shadow": false,
+            "x": 281,
+            "y": 318
+        },
         "V(NnjMVB|+s{8WBW+X1I": {
             "id": "V(NnjMVB|+s{8WBW+X1I",
             "opcode": "control_forever",
@@ -15,9 +287,45 @@
             "next": null,
             "topLevel": false,
             "parent": "Z5.G1buNEo}d$9N%]JeQ",
-            "shadow": false,
-            "x": 78.40740740740742,
-            "y": 459.25925925925924
+            "shadow": false
+        },
+        "uDuNF=vg8$}YF36.^f|^": {
+            "id": "uDuNF=vg8$}YF36.^f|^",
+            "opcode": "data_setvariableto",
+            "inputs": {
+                "VALUE": {
+                    "name": "VALUE",
+                    "block": "POHNYjh2e}BSHwXc-PGd",
+                    "shadow": "POHNYjh2e}BSHwXc-PGd"
+                }
+            },
+            "fields": {
+                "VARIABLE": {
+                    "name": "VARIABLE",
+                    "id": "!OVN0%s0K6f8+Qz%]3+^",
+                    "value": "FLAG COUNT",
+                    "variableType": ""
+                }
+            },
+            "next": "!K.vsZ-xIU_*YDy{5aGA",
+            "topLevel": false,
+            "parent": "V(NnjMVB|+s{8WBW+X1I",
+            "shadow": false
+        },
+        "POHNYjh2e}BSHwXc-PGd": {
+            "id": "POHNYjh2e}BSHwXc-PGd",
+            "opcode": "text",
+            "inputs": {},
+            "fields": {
+                "TEXT": {
+                    "name": "TEXT",
+                    "value": "0"
+                }
+            },
+            "next": null,
+            "topLevel": false,
+            "parent": "uDuNF=vg8$}YF36.^f|^",
+            "shadow": true
         },
         "!K.vsZ-xIU_*YDy{5aGA": {
             "id": "!K.vsZ-xIU_*YDy{5aGA",
@@ -176,9 +484,7 @@
             "next": null,
             "topLevel": false,
             "parent": "pe4#,X%;^AsISOJj-gO_",
-            "shadow": true,
-            "x": "621.8746190954138",
-            "y": "382.74074074074076"
+            "shadow": true
         },
         "aWo|Hf!?tV46W;R~og{I": {
             "id": "aWo|Hf!?tV46W;R~og{I",
@@ -187,7 +493,7 @@
             "fields": {
                 "VARIABLE": {
                     "name": "VARIABLE",
-                    "id": "$SPEED",
+                    "id": "$speed",
                     "value": "speed",
                     "variableType": ""
                 }
@@ -210,9 +516,7 @@
             "next": null,
             "topLevel": false,
             "parent": "pe4#,X%;^AsISOJj-gO_",
-            "shadow": true,
-            "x": "728.5699315954138",
-            "y": "382.74074074074076"
+            "shadow": true
         },
         "kOyC2G0@wJo1j;O5wYTV": {
             "id": "kOyC2G0@wJo1j;O5wYTV",
@@ -227,9 +531,7 @@
             "next": null,
             "topLevel": false,
             "parent": "`km87+dqp];IG0;hk,wT",
-            "shadow": true,
-            "x": "699.9486931694881",
-            "y": "114.14814814814821"
+            "shadow": true
         },
         "0~#`*cb%Ay2)hAiv#KHx": {
             "id": "0~#`*cb%Ay2)hAiv#KHx",
@@ -295,9 +597,7 @@
             "next": null,
             "topLevel": false,
             "parent": "p6T{[Cci/#xt#Z#rut:*",
-            "shadow": true,
-            "x": "509.7264709472656",
-            "y": "478"
+            "shadow": true
         },
         ")fW_jezdx0n0mja-RLZi": {
             "id": ")fW_jezdx0n0mja-RLZi",
@@ -387,9 +687,7 @@
             "next": null,
             "topLevel": false,
             "parent": ";~tmo#zi_s.[R9nNN@5]",
-            "shadow": true,
-            "x": "485.5783227991175",
-            "y": "728.2222222222222"
+            "shadow": true
         },
         "sCyd:%jS}L|{JbDggbPn": {
             "id": "sCyd:%jS}L|{JbDggbPn",
@@ -398,7 +696,7 @@
             "fields": {
                 "VARIABLE": {
                     "name": "VARIABLE",
-                    "id": "$SPEED",
+                    "id": "$speed",
                     "value": "speed",
                     "variableType": ""
                 }
@@ -436,9 +734,7 @@
             "next": null,
             "topLevel": false,
             "parent": ";JAPGOk0dYgxHK1mV|(A",
-            "shadow": true,
-            "x": "557.7264709472656",
-            "y": "609.2592592592592"
+            "shadow": true
         },
         "!Kzg^^SRb_k-`)]fe*O%": {
             "id": "!Kzg^^SRb_k-`)]fe*O%",
@@ -489,9 +785,7 @@
             "next": null,
             "topLevel": false,
             "parent": ";JAPGOk0dYgxHK1mV|(A",
-            "shadow": true,
-            "x": "406.24131944444434",
-            "y": "614.2222222222236"
+            "shadow": true
         },
         "7D[d!lwVi6byO4QF0+D?": {
             "id": "7D[d!lwVi6byO4QF0+D?",
@@ -506,45 +800,43 @@
             "next": null,
             "topLevel": false,
             "parent": ")fW_jezdx0n0mja-RLZi",
-            "shadow": true,
-            "x": "509.7264709472656",
-            "y": "542"
+            "shadow": true
         },
-        "=}zEiv0%M:$Vpy94U[I5": {
-            "id": "=}zEiv0%M:$Vpy94U[I5",
+        "#HEy)#iLvXNo8YNyu}lj": {
+            "id": "#HEy)#iLvXNo8YNyu}lj",
             "opcode": "event_whenkeypressed",
             "inputs": {},
             "fields": {
                 "KEY_OPTION": {
                     "name": "KEY_OPTION",
-                    "value": "f"
+                    "value": "g"
                 }
             },
-            "next": "Tl%_*E%X=h[|aU+BnGW~",
+            "next": "S^;T8WKp8]gvMJ3JK$XU",
             "topLevel": true,
             "parent": null,
             "shadow": false,
-            "x": 289,
-            "y": 777
+            "x": 690,
+            "y": 765
         },
-        "Tl%_*E%X=h[|aU+BnGW~": {
-            "id": "Tl%_*E%X=h[|aU+BnGW~",
+        "S^;T8WKp8]gvMJ3JK$XU": {
+            "id": "S^;T8WKp8]gvMJ3JK$XU",
             "opcode": "sensing_askandwait",
             "inputs": {
                 "QUESTION": {
                     "name": "QUESTION",
-                    "block": "BkRxLr7C!n857`rNH/r-",
-                    "shadow": "BkRxLr7C!n857`rNH/r-"
+                    "block": "?.)3|Qko=Jf`dJ7.`ROa",
+                    "shadow": "?.)3|Qko=Jf`dJ7.`ROa"
                 }
             },
             "fields": {},
-            "next": "KHQXV#0TH~w6hXD@D_Li",
+            "next": "|{(]oyI?:6NDbhzS^o?^",
             "topLevel": false,
-            "parent": "=}zEiv0%M:$Vpy94U[I5",
+            "parent": "#HEy)#iLvXNo8YNyu}lj",
             "shadow": false
         },
-        "BkRxLr7C!n857`rNH/r-": {
-            "id": "BkRxLr7C!n857`rNH/r-",
+        "?.)3|Qko=Jf`dJ7.`ROa": {
+            "id": "?.)3|Qko=Jf`dJ7.`ROa",
             "opcode": "text",
             "inputs": {},
             "fields": {
@@ -555,79 +847,79 @@
             },
             "next": null,
             "topLevel": false,
-            "parent": "Tl%_*E%X=h[|aU+BnGW~",
+            "parent": "S^;T8WKp8]gvMJ3JK$XU",
             "shadow": true
         },
-        "KHQXV#0TH~w6hXD@D_Li": {
-            "id": "KHQXV#0TH~w6hXD@D_Li",
+        "|{(]oyI?:6NDbhzS^o?^": {
+            "id": "|{(]oyI?:6NDbhzS^o?^",
             "opcode": "control_if",
             "inputs": {
                 "CONDITION": {
                     "name": "CONDITION",
-                    "block": "m9=Ys#^tk+4vg0VOF8hM",
+                    "block": "B~-OpOL6$.FooQYYbl`T",
                     "shadow": null
                 },
                 "SUBSTACK": {
                     "name": "SUBSTACK",
-                    "block": "W;}^}`bUU,%+#3jUm#],",
+                    "block": "v2Hp.aKBaF:7Z`;Nt}(b",
                     "shadow": null
                 }
             },
             "fields": {},
             "next": null,
             "topLevel": false,
-            "parent": "Tl%_*E%X=h[|aU+BnGW~",
+            "parent": "S^;T8WKp8]gvMJ3JK$XU",
             "shadow": false
         },
-        "m9=Ys#^tk+4vg0VOF8hM": {
-            "id": "m9=Ys#^tk+4vg0VOF8hM",
+        "B~-OpOL6$.FooQYYbl`T": {
+            "id": "B~-OpOL6$.FooQYYbl`T",
             "opcode": "operator_not",
             "inputs": {
                 "OPERAND": {
                     "name": "OPERAND",
-                    "block": "W(l}i)=tPdT5i8hT-rj@",
+                    "block": "1_X=Y0t}ipRt4;0F09(R",
                     "shadow": null
                 }
             },
             "fields": {},
             "next": null,
             "topLevel": false,
-            "parent": "KHQXV#0TH~w6hXD@D_Li",
+            "parent": "|{(]oyI?:6NDbhzS^o?^",
             "shadow": false
         },
-        "W(l}i)=tPdT5i8hT-rj@": {
-            "id": "W(l}i)=tPdT5i8hT-rj@",
+        "1_X=Y0t}ipRt4;0F09(R": {
+            "id": "1_X=Y0t}ipRt4;0F09(R",
             "opcode": "operator_equals",
             "inputs": {
                 "OPERAND1": {
                     "name": "OPERAND1",
-                    "block": "0IL![bnOJ$b`g:TT_cQB",
-                    "shadow": "Tr)_y!C9l8h=ACdmxTZ/"
+                    "block": "E8V:U0Ee*11H{RxVbNRA",
+                    "shadow": "w;wqZLn,,3mM8FaMf3t)"
                 },
                 "OPERAND2": {
                     "name": "OPERAND2",
-                    "block": "i_uGN3yT~Ph`0]g[|+0?",
-                    "shadow": "i_uGN3yT~Ph`0]g[|+0?"
+                    "block": "~WB0,a[t:e^}6)SSxVOQ",
+                    "shadow": "~WB0,a[t:e^}6)SSxVOQ"
                 }
             },
             "fields": {},
             "next": null,
             "topLevel": false,
-            "parent": "m9=Ys#^tk+4vg0VOF8hM",
+            "parent": "B~-OpOL6$.FooQYYbl`T",
             "shadow": false
         },
-        "0IL![bnOJ$b`g:TT_cQB": {
-            "id": "0IL![bnOJ$b`g:TT_cQB",
+        "E8V:U0Ee*11H{RxVbNRA": {
+            "id": "E8V:U0Ee*11H{RxVbNRA",
             "opcode": "sensing_answer",
             "inputs": {},
             "fields": {},
             "next": null,
             "topLevel": false,
-            "parent": "W(l}i)=tPdT5i8hT-rj@",
+            "parent": "1_X=Y0t}ipRt4;0F09(R",
             "shadow": false
         },
-        "Tr)_y!C9l8h=ACdmxTZ/": {
-            "id": "Tr)_y!C9l8h=ACdmxTZ/",
+        "w;wqZLn,,3mM8FaMf3t)": {
+            "id": "w;wqZLn,,3mM8FaMf3t)",
             "opcode": "text",
             "inputs": {},
             "fields": {
@@ -638,126 +930,79 @@
             },
             "next": null,
             "topLevel": false,
-            "parent": "W(l}i)=tPdT5i8hT-rj@",
-            "shadow": true,
-            "x": "165.3333333333331",
-            "y": "441.3333333333348"
-        },
-        "i_uGN3yT~Ph`0]g[|+0?": {
-            "id": "i_uGN3yT~Ph`0]g[|+0?",
-            "opcode": "text",
-            "inputs": {},
-            "fields": {
-                "TEXT": {
-                    "name": "TEXT",
-                    "value": ""
-                }
-            },
-            "next": null,
-            "topLevel": false,
-            "parent": "W(l}i)=tPdT5i8hT-rj@",
+            "parent": "1_X=Y0t}ipRt4;0F09(R",
             "shadow": true
         },
-        "W;}^}`bUU,%+#3jUm#],": {
-            "id": "W;}^}`bUU,%+#3jUm#],",
-            "opcode": "data_setvariableto",
-            "inputs": {
-                "VALUE": {
-                    "name": "VALUE",
-                    "block": "}6b1lY{Mj`#m=4XpLqTB",
-                    "shadow": ")fb3dsGGEt_}3I|;EuDY"
-                }
-            },
-            "fields": {
-                "VARIABLE": {
-                    "name": "VARIABLE",
-                    "id": "$SPEED",
-                    "value": "speed",
-                    "variableType": ""
-                }
-            },
-            "next": null,
-            "topLevel": false,
-            "parent": "KHQXV#0TH~w6hXD@D_Li",
-            "shadow": false,
-            "x": 387.96296296296293,
-            "y": 936.1111111111112
-        },
-        ")fb3dsGGEt_}3I|;EuDY": {
-            "id": ")fb3dsGGEt_}3I|;EuDY",
+        "~WB0,a[t:e^}6)SSxVOQ": {
+            "id": "~WB0,a[t:e^}6)SSxVOQ",
             "opcode": "text",
             "inputs": {},
             "fields": {
                 "TEXT": {
                     "name": "TEXT",
-                    "value": "0"
+                    "value": ""
                 }
             },
             "next": null,
-            "topLevel": true,
-            "parent": null,
-            "shadow": true,
-            "x": 467.93745422363276,
-            "y": 945
+            "topLevel": false,
+            "parent": "1_X=Y0t}ipRt4;0F09(R",
+            "shadow": true
         },
-        "}6b1lY{Mj`#m=4XpLqTB": {
-            "id": "}6b1lY{Mj`#m=4XpLqTB",
+        "v2Hp.aKBaF:7Z`;Nt}(b": {
+            "id": "v2Hp.aKBaF:7Z`;Nt}(b",
+            "opcode": "procedures_call",
+            "inputs": {
+                "=1$+Zb?drLzmz%_KLti?": {
+                    "name": "=1$+Zb?drLzmz%_KLti?",
+                    "block": "XuxrI9Pjk)p,p]Nk/y@P",
+                    "shadow": "XuxrI9Pjk)p,p]Nk/y@P"
+                },
+                "_1N{(K9IA2Kmt/pTWi,a": {
+                    "name": "_1N{(K9IA2Kmt/pTWi,a",
+                    "block": "lk$}(GMn}R$4*u8shNHZ",
+                    "shadow": "^xjz4^uNz5cWghNeu=vO"
+                }
+            },
+            "fields": {},
+            "next": null,
+            "topLevel": false,
+            "parent": "|{(]oyI?:6NDbhzS^o?^",
+            "shadow": false,
+            "mutation": {
+                "tagName": "mutation",
+                "children": [],
+                "proccode": "set %s %s",
+                "argumentids": "[\"=1$+Zb?drLzmz%_KLti?\",\"_1N{(K9IA2Kmt/pTWi,a\"]",
+                "warp": "true"
+            }
+        },
+        "XuxrI9Pjk)p,p]Nk/y@P": {
+            "id": "XuxrI9Pjk)p,p]Nk/y@P",
+            "opcode": "text",
+            "inputs": {},
+            "fields": {
+                "TEXT": {
+                    "name": "TEXT",
+                    "value": "speed"
+                }
+            },
+            "next": null,
+            "topLevel": false,
+            "parent": "v2Hp.aKBaF:7Z`;Nt}(b",
+            "shadow": true
+        },
+        "lk$}(GMn}R$4*u8shNHZ": {
+            "id": "lk$}(GMn}R$4*u8shNHZ",
             "opcode": "sensing_answer",
             "inputs": {},
             "fields": {},
             "next": null,
             "topLevel": false,
-            "parent": "W;}^}`bUU,%+#3jUm#],",
-            "shadow": false,
-            "x": 494.92592592592575,
-            "y": 971.2592592592591
+            "parent": "v2Hp.aKBaF:7Z`;Nt}(b",
+            "shadow": false
         },
-        "T`h6QjXtV`cB?1z4M:rF": {
-            "id": "T`h6QjXtV`cB?1z4M:rF",
-            "opcode": "event_whenbroadcastreceived",
-            "inputs": {},
-            "fields": {
-                "BROADCAST_OPTION": {
-                    "name": "BROADCAST_OPTION",
-                    "id": "JFC%GL]Ka.(v{G,Qp~Xh",
-                    "value": "LOAD",
-                    "variableType": "broadcast_msg"
-                }
-            },
-            "next": "*9W?lmu@:g0my%9cAWSB",
-            "topLevel": true,
-            "parent": null,
-            "shadow": false,
-            "x": 302,
-            "y": 29
-        },
-        "*9W?lmu@:g0my%9cAWSB": {
-            "id": "*9W?lmu@:g0my%9cAWSB",
-            "opcode": "data_setvariableto",
-            "inputs": {
-                "VALUE": {
-                    "name": "VALUE",
-                    "block": "B~D2UTt2ZRO@k_bR$!js",
-                    "shadow": "B~D2UTt2ZRO@k_bR$!js"
-                }
-            },
-            "fields": {
-                "VARIABLE": {
-                    "name": "VARIABLE",
-                    "id": "$speed",
-                    "value": "speed",
-                    "variableType": ""
-                }
-            },
-            "next": null,
-            "topLevel": false,
-            "parent": "T`h6QjXtV`cB?1z4M:rF",
-            "shadow": false,
-            "x": 93.48148148148124,
-            "y": 602.1729374638364
-        },
-        "B~D2UTt2ZRO@k_bR$!js": {
-            "id": "B~D2UTt2ZRO@k_bR$!js",
+        "^xjz4^uNz5cWghNeu=vO": {
+            "id": "^xjz4^uNz5cWghNeu=vO",
             "opcode": "text",
             "inputs": {},
             "fields": {
@@ -768,84 +1013,242 @@
             },
             "next": null,
             "topLevel": false,
-            "parent": "*9W?lmu@:g0my%9cAWSB",
-            "shadow": true
+            "parent": "v2Hp.aKBaF:7Z`;Nt}(b",
+            "shadow": true,
+            "x": "849.8333329094779",
+            "y": "1072.2592592592591"
         },
-        "Z5.G1buNEo}d$9N%]JeQ": {
-            "id": "Z5.G1buNEo}d$9N%]JeQ",
-            "opcode": "event_whenbroadcastreceived",
+        "SEhK69`!n}PO,8^:b3zm": {
+            "id": "SEhK69`!n}PO,8^:b3zm",
+            "opcode": "event_whenkeypressed",
             "inputs": {},
             "fields": {
-                "BROADCAST_OPTION": {
-                    "name": "BROADCAST_OPTION",
-                    "id": "EmRV]n$Ek(aIb/haC#w^",
-                    "value": "START",
-                    "variableType": "broadcast_msg"
+                "KEY_OPTION": {
+                    "name": "KEY_OPTION",
+                    "value": "h"
                 }
             },
-            "next": "V(NnjMVB|+s{8WBW+X1I",
+            "next": "F!;O1Gcc+P$e:JaeDo(v",
             "topLevel": true,
             "parent": null,
             "shadow": false,
-            "x": 281,
-            "y": 318
+            "x": 1092,
+            "y": 762
         },
-        "uDuNF=vg8$}YF36.^f|^": {
-            "id": "uDuNF=vg8$}YF36.^f|^",
-            "opcode": "data_setvariableto",
+        "F!;O1Gcc+P$e:JaeDo(v": {
+            "id": "F!;O1Gcc+P$e:JaeDo(v",
+            "opcode": "sensing_askandwait",
             "inputs": {
-                "VALUE": {
-                    "name": "VALUE",
-                    "block": "POHNYjh2e}BSHwXc-PGd",
-                    "shadow": "POHNYjh2e}BSHwXc-PGd"
+                "QUESTION": {
+                    "name": "QUESTION",
+                    "block": "eO.@q9ROT-Y/`IR8+?xE",
+                    "shadow": "eO.@q9ROT-Y/`IR8+?xE"
                 }
             },
-            "fields": {
-                "VARIABLE": {
-                    "name": "VARIABLE",
-                    "id": "!OVN0%s0K6f8+Qz%]3+^",
-                    "value": "FLAG COUNT",
-                    "variableType": ""
-                }
-            },
-            "next": "!K.vsZ-xIU_*YDy{5aGA",
+            "fields": {},
+            "next": "yD.O8N9;I(tMdyE/v]/V",
             "topLevel": false,
-            "parent": "V(NnjMVB|+s{8WBW+X1I",
-            "shadow": false,
-            "x": 278.66666666666663,
-            "y": 410.0741644965455
+            "parent": "SEhK69`!n}PO,8^:b3zm",
+            "shadow": false
         },
-        "POHNYjh2e}BSHwXc-PGd": {
-            "id": "POHNYjh2e}BSHwXc-PGd",
+        "eO.@q9ROT-Y/`IR8+?xE": {
+            "id": "eO.@q9ROT-Y/`IR8+?xE",
             "opcode": "text",
             "inputs": {},
             "fields": {
                 "TEXT": {
                     "name": "TEXT",
-                    "value": "0"
+                    "value": "JUMP"
                 }
             },
             "next": null,
             "topLevel": false,
-            "parent": "uDuNF=vg8$}YF36.^f|^",
+            "parent": "F!;O1Gcc+P$e:JaeDo(v",
+            "shadow": true
+        },
+        "yD.O8N9;I(tMdyE/v]/V": {
+            "id": "yD.O8N9;I(tMdyE/v]/V",
+            "opcode": "control_if",
+            "inputs": {
+                "CONDITION": {
+                    "name": "CONDITION",
+                    "block": "Nt7+9Uf(:]4K7!?9TfyJ",
+                    "shadow": null
+                },
+                "SUBSTACK": {
+                    "name": "SUBSTACK",
+                    "block": "-%|K*Y}3M8Ru{+:KPolQ",
+                    "shadow": null
+                }
+            },
+            "fields": {},
+            "next": null,
+            "topLevel": false,
+            "parent": "F!;O1Gcc+P$e:JaeDo(v",
+            "shadow": false
+        },
+        "Nt7+9Uf(:]4K7!?9TfyJ": {
+            "id": "Nt7+9Uf(:]4K7!?9TfyJ",
+            "opcode": "operator_not",
+            "inputs": {
+                "OPERAND": {
+                    "name": "OPERAND",
+                    "block": "Vsf8/!92]pAc):*;XES~",
+                    "shadow": null
+                }
+            },
+            "fields": {},
+            "next": null,
+            "topLevel": false,
+            "parent": "yD.O8N9;I(tMdyE/v]/V",
+            "shadow": false
+        },
+        "Vsf8/!92]pAc):*;XES~": {
+            "id": "Vsf8/!92]pAc):*;XES~",
+            "opcode": "operator_equals",
+            "inputs": {
+                "OPERAND1": {
+                    "name": "OPERAND1",
+                    "block": "FNf7G)Y,[;hzV?UyY3*}",
+                    "shadow": "}fLZpb2W??wQ*pt]lZvK"
+                },
+                "OPERAND2": {
+                    "name": "OPERAND2",
+                    "block": "jxR^~W%G757A$(n_g^5p",
+                    "shadow": "jxR^~W%G757A$(n_g^5p"
+                }
+            },
+            "fields": {},
+            "next": null,
+            "topLevel": false,
+            "parent": "Nt7+9Uf(:]4K7!?9TfyJ",
+            "shadow": false
+        },
+        "FNf7G)Y,[;hzV?UyY3*}": {
+            "id": "FNf7G)Y,[;hzV?UyY3*}",
+            "opcode": "sensing_answer",
+            "inputs": {},
+            "fields": {},
+            "next": null,
+            "topLevel": false,
+            "parent": "Vsf8/!92]pAc):*;XES~",
+            "shadow": false
+        },
+        "}fLZpb2W??wQ*pt]lZvK": {
+            "id": "}fLZpb2W??wQ*pt]lZvK",
+            "opcode": "text",
+            "inputs": {},
+            "fields": {
+                "TEXT": {
+                    "name": "TEXT",
+                    "value": ""
+                }
+            },
+            "next": null,
+            "topLevel": false,
+            "parent": "Vsf8/!92]pAc):*;XES~",
+            "shadow": true
+        },
+        "jxR^~W%G757A$(n_g^5p": {
+            "id": "jxR^~W%G757A$(n_g^5p",
+            "opcode": "text",
+            "inputs": {},
+            "fields": {
+                "TEXT": {
+                    "name": "TEXT",
+                    "value": ""
+                }
+            },
+            "next": null,
+            "topLevel": false,
+            "parent": "Vsf8/!92]pAc):*;XES~",
+            "shadow": true
+        },
+        "-%|K*Y}3M8Ru{+:KPolQ": {
+            "id": "-%|K*Y}3M8Ru{+:KPolQ",
+            "opcode": "procedures_call",
+            "inputs": {
+                "=1$+Zb?drLzmz%_KLti?": {
+                    "name": "=1$+Zb?drLzmz%_KLti?",
+                    "block": "tC?/3)2[7I[$u-%i)K!V",
+                    "shadow": "tC?/3)2[7I[$u-%i)K!V"
+                },
+                "_1N{(K9IA2Kmt/pTWi,a": {
+                    "name": "_1N{(K9IA2Kmt/pTWi,a",
+                    "block": "?QSVRC7l1t,a-%+;gLoq",
+                    "shadow": "kHrxw6=8jGHkuo_N05at"
+                }
+            },
+            "fields": {},
+            "next": null,
+            "topLevel": false,
+            "parent": "yD.O8N9;I(tMdyE/v]/V",
+            "shadow": false,
+            "mutation": {
+                "tagName": "mutation",
+                "children": [],
+                "proccode": "set %s %s",
+                "argumentids": "[\"=1$+Zb?drLzmz%_KLti?\",\"_1N{(K9IA2Kmt/pTWi,a\"]",
+                "warp": "true"
+            }
+        },
+        "tC?/3)2[7I[$u-%i)K!V": {
+            "id": "tC?/3)2[7I[$u-%i)K!V",
+            "opcode": "text",
+            "inputs": {},
+            "fields": {
+                "TEXT": {
+                    "name": "TEXT",
+                    "value": "jump"
+                }
+            },
+            "next": null,
+            "topLevel": false,
+            "parent": "-%|K*Y}3M8Ru{+:KPolQ",
+            "shadow": true
+        },
+        "?QSVRC7l1t,a-%+;gLoq": {
+            "id": "?QSVRC7l1t,a-%+;gLoq",
+            "opcode": "sensing_answer",
+            "inputs": {},
+            "fields": {},
+            "next": null,
+            "topLevel": false,
+            "parent": "-%|K*Y}3M8Ru{+:KPolQ",
+            "shadow": false
+        },
+        "kHrxw6=8jGHkuo_N05at": {
+            "id": "kHrxw6=8jGHkuo_N05at",
+            "opcode": "text",
+            "inputs": {},
+            "fields": {
+                "TEXT": {
+                    "name": "TEXT",
+                    "value": "1"
+                }
+            },
+            "next": null,
+            "topLevel": false,
+            "parent": "-%|K*Y}3M8Ru{+:KPolQ",
             "shadow": true
         }
     };
     for (let i in code) {
-        vm.runtime.targets[1].blocks._blocks[i] = code[i]
+        vm.runtime.targets[1].blocks.createBlock(code[i]);
     };
-    vm.runtime.targets[1].blocks._scripts.push(
-        "=}zEiv0%M:$Vpy94U[I5",
-        ")fb3dsGGEt_}3I|;EuDY",
-        "T`h6QjXtV`cB?1z4M:rF",
-        "Z5.G1buNEo}d$9N%]JeQ"
-    );
-    let firstload = false;
+    vm.runtime.requestBlocksUpdate();
+    let loaded = false;
     vm.on("PROJECT_START", ()=> {
-        if (!firstload) broadcast("LOAD");
-        firstload = true;
+        if (!loaded)
+            broadcast("LOAD");
         broadcast("START");
+        loaded = true;
     });
+    if (vm.runtime.threads.length > 0) {
+        loaded = true;
+        broadcast("LOAD");
+        broadcast("START");
+    }
     setInterval(()=>{setlocal("Game","clock",1)},0);
     window.tp = function(p) {
         let plrs = vm.runtime.targets[4].sprite.clones;
@@ -856,4 +1259,44 @@
             }
         }
     }
-})()
+    const CONFIG = {speed:1, jump:1};
+    restore(vm.runtime._primitives, "procedures_call");
+    hook(vm.runtime._primitives, "procedures_call", old => {
+        return function (b, th) {
+            try {
+                let cargs = JSON.parse(b.mutation.argumentids);
+                let args = [];
+                for (let i of cargs) {
+                    args.push(b[i]);
+                };
+                if (th.thread.target.getName() === "Blank" && b.mutation.proccode === "set %s %s") { // block used for communication
+                    CONFIG[args[0]] = args[1];
+                    console.warn(args, cargs);
+                } else if (th.thread.target.getName() === "Game" && b.mutation.proccode.includes("accelerate")) {
+                    b[cargs[0]] *= Number(CONFIG.speed) || 1;
+                }
+            } catch (e) { }
+            return old.apply(this, arguments)
+        }
+    });
+    restore(vm.runtime._primitives, "data_setvariableto");
+    hook(vm.runtime._primitives, "data_setvariableto", old => {
+        const jumps = new WeakMap; // this isn't here for caching its bc if i set b.VALUE to x2 value then it will stay like that (if its constant value) which is bad
+        return function (b, th) {
+            if (b.VARIABLE.name === "@Player SY" && th.thread.target.getName() === "Game") {
+                try {
+                    if (jumps.has(b)) {
+                        b.VALUE = jumps.get(b) * (Number(CONFIG.jump) || 1);
+                    } else if ((b.VALUE == 10 || b.VALUE == 14 || b.VALUE == 17) && getglobal("@Player Mode") !== "Parachute" && !jumps.has(b)) {
+                        jumps.set(b, b.VALUE);
+                        b.VALUE *= Number(CONFIG.jump) || 1;
+                    }
+                } catch (e) { console.warn(e) }
+            }
+            return old.apply(this, arguments);
+        }
+    });
+    vm.runtime.targets.forEach(v=>{
+        v.blocks.resetCache();
+    });
+})();

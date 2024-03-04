@@ -62,7 +62,7 @@
             "fields": {
                 "TEXT": {
                     "name": "TEXT",
-                    "value": "1000"
+                    "value": "100"
                 }
             },
             "next": null,
@@ -72,19 +72,22 @@
         }
     };
     for (let i in code) {
-        vm.runtime.targets[0].blocks._blocks[i] = code[i]
+        vm.runtime.targets[0].blocks.createBlock(code[i]);
     };
-    vm.runtime.targets[0].blocks._scripts.push(
-        "HvPPj(QTW*j!FMdso95p"
-    );
+    vm.runtime._pushThread("HvPPj(QTW*j!FMdso95p",vm.runtime.targets[0]);
     let obj = vm.runtime.targets[0].blocks._blocks['=hr*2JdBoq7da2!tZ{zw'].inputs.OPERAND2;
     obj = vm.runtime.targets[0].blocks._blocks[obj.block];
     obj.fields = {};
     obj.opcode = "sensing_username";
+    vm.runtime.targets[0].blocks.resetCache();
+    vm.runtime.targets[0].blocks.emitProjectChanged();
+    vm.runtime.requestBlocksUpdate();
     let szid = vm.runtime.targets[1].blocks._blocks["j)jMpHg,~`9{I6:%CDEC"].inputs.VALUE.block;
     vm.runtime.targets[1].blocks._blocks[szid].fields.NUM.value = -0.0025;
     let sxid = vm.runtime.targets[1].blocks._blocks["5C@Cd8.pfaC/ECuSEpTx"].inputs.NUM2.block;
     vm.runtime.targets[1].blocks._blocks[sxid].fields.NUM.value = 0.9;
     let syid = vm.runtime.targets[1].blocks._blocks[":BwsP.n8XXrfmNXb83P*"].inputs.NUM2.block;
     vm.runtime.targets[1].blocks._blocks[syid].fields.NUM.value = 0.9;
+    vm.runtime.targets[1].blocks.resetCache();
+    vm.runtime.targets[1].blocks.emitProjectChanged();
 })()

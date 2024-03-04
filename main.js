@@ -1,27 +1,59 @@
-var code = '(' + function() {
+(function() {
+    "use strict";
     console.log("Loaded");
-    const old = Function.prototype.bind;
     let vm;
-    const bind = function(...args) {
-        if (this == console.log) {return old.apply(this,args)};
-        //console.log((args[0]+'').substr(0,1),args[0],(this+'').substr(0,1),this)
-        if (Function.prototype.bind == old) {
-            return old.apply(this,args)
-        } else if (
-            args[0]&&
-            Object.prototype.hasOwnProperty.call(args[0],"runtime")&&
-            Object.prototype.hasOwnProperty.call(args[0],"editingTarget")
-            ) {
-            console.warn("%cSuccessfully logged VM & Have fun trolling and shit","color: #ff4d36; font-size:200%");
-            vm = args[0];
-            vmcaller = this;
-            window.vm = vm;
-            window.vmcaller = vmcaller;
-            Function.prototype.bind = old;
+    const spoof = new WeakMap;
+    const hook = function(o,n,f){
+        const old = o[n];
+        const cb = f(old);
+        spoof.set(cb,old);
+        Object.defineProperty(cb,"name",{
+            value: old.name
+        });
+        o[n] = cb;
+    }
+    const restore = function(o,n) {
+        let f = o[n];
+        if (!spoof.has(f)) return false;
+        while (true) {
+            if (!spoof.has(f))
+                break;
+            f = spoof.get(f);
         }
-        return old.apply(this,args)
-    };
-    Function.prototype.bind = bind;
+        o[n] = f;
+        return f;
+    }
+    window.hook = hook;
+    window.restore = restore;
+    hook(Function.prototype,"bind",old=>{
+        return function(...args) {
+            try {
+                if (args[0].runtime != null && args[0].hasOwnProperty("editingTarget")) {
+                    console.warn("%cSuccessfully logged VM & Have fun trolling and shit", "color: #ff4d36; font-size:200%");
+                    vm = args[0];
+                    window.vm = vm;
+                    Function.prototype.bind = old;
+                }
+            } catch (e) {}
+            return old.apply(this, args)
+        };
+    });
+    hook(Function.prototype,"toString", old=>{
+        return function() {
+            return old.apply(spoof.get(this)||this,arguments);
+        }
+    });
+    hook(Object.prototype,"hasOwnProperty",old=>{
+        return function(...a) {
+            try{
+                if (this["scratch3_control"] != null) {
+                    window.blocks = this;
+                    Object.prototype.hasOwnProperty = old;
+                }
+            }catch(e){}
+            return old.apply(this,a);
+        }
+    });
     window.sleep = async ms => {
         return new Promise(resolve => setTimeout(resolve,ms));
     }
@@ -69,7 +101,7 @@ var code = '(' + function() {
     };
     window.setlocal = function(s,n,v) {
         let spr;
-        if (typeof(s) == "string") {
+        if (typeof s == "string") {
             spr = getsprite(s);
         } else {
             spr = s;
@@ -84,7 +116,7 @@ var code = '(' + function() {
     };
     window.getlocal = function(s,n) {
         let spr;
-        if (typeof(s) == "string") {
+        if (typeof s == "string") {
             spr = getsprite(s);
         } else {
             spr = s;
@@ -96,6 +128,26 @@ var code = '(' + function() {
         };
         return false;
     };
+    window.getlocals = function(s) {
+        let spr;
+        if (typeof s == "string")
+            spr = getsprite(s);
+        else
+            spr = s;
+        let l = [];
+        for(let i in spr.variables) {
+            l.push(spr.variables[i].name);
+        }
+        return l;
+    }
+    window.getglobals = function() {
+        let spr = vm.runtime.targets[0]
+        let l = [];
+        for(let i in spr.variables) {
+            l.push(spr.variables[i].name);
+        }
+        return l;
+    }
     window.getid = function(n) {
         for(let i in vm.runtime.targets[0].variables) {
             if (vm.runtime.targets[0].variables[i].name == n) {return i}
@@ -192,11 +244,4 @@ var code = '(' + function() {
         e._events.ANSWER.pop(l);
         return a;
     };
-    setTimeout(()=>{
-        vm.runtime.on("ANSWER",(a)=>window.ANSWER=a);
-    },5000);
-
-} + ')();'
-var script = document.createElement('script')
-script.textContent = (()=>{return code})()
-document.documentElement.appendChild(script)
+})();
