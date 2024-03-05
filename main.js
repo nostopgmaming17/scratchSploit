@@ -155,16 +155,14 @@
         return false
     };
     window.getlocalid = function(s,n) {
-        let sid;
+        let spr;
         if (typeof(s) == "string") {
-            sid = getspriteid(s);
+            spr = getsprite(s);
         } else {
-            for (let i in vm.runtime.targets) {
-                if (vm.runtime.targets[i].getName() == s) sid = i;
-            };
+            spr = s;
         };
-        for (let id in vm.runtime.targets[sid].variables) {
-            if (vm.runtime.targets[sid].variables[id].name == n) {return id};
+        for (let id in spr.variables) {
+            if (spr.variables[id].name == n) {return id};
         };
         return false;
     };

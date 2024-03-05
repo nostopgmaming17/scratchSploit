@@ -18,7 +18,7 @@
             if (th.target.blocks._blocks !== lac.blocks._blocks)
                 return old.apply(this,arguments);
             if (th.target.blocks._blocks === lac.blocks._blocks && b.mutation.proccode.includes("flag")) {
-                return;
+               return;
             }
             return old.apply(this,arguments);
         }
@@ -26,8 +26,17 @@
     restore(vm.runtime._primitives,"data_setvariableto");
     hook(vm.runtime._primitives,"data_setvariableto",old=>{
         return function(b,th) {
-            if (b.VARIABLE.name == "Yv2" && b.VALUE == -100){
-                return
+            if (b.VARIABLE.name == "Yv2" && b.VALUE == -100) {
+                return;
+            } else if (b.VARIABLE.name == "Xv" && b.VALUE == 0) {
+                const bid = th.thread.stack[th.thread.stack.length-1];
+                const next = th.thread.target.blocks._blocks[th.thread.target.blocks.getNextBlock(bid)];
+                if (next && next.opcode === "event_broadcast") {
+                    const inp = th.thread.target.blocks._blocks[next.inputs.BROADCAST_INPUT.block];
+                    if (inp && inp.fields.BROADCAST_OPTION.value == "lac.setback")
+                        return;
+                }
+                return;
             }
             return old.apply(this,arguments);
         }

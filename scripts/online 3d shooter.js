@@ -74,7 +74,75 @@
     for (let i in code) {
         vm.runtime.targets[0].blocks.createBlock(code[i]);
     };
-    vm.runtime._pushThread("HvPPj(QTW*j!FMdso95p",vm.runtime.targets[0]);
+
+    restore(vm.runtime._primitives,"procedures_call");
+    hook(vm.runtime._primitives,"procedures_call",old=>{
+        const sprite = vm.runtime.targets[1];
+        return function(b, th) {
+            try{
+                if (th.thread.target.blocks._blocks === sprite.blocks._blocks && b.mutation.proccode.includes("Accelerate")) {
+                    const cargs = JSON.parse(b.mutation.argumentids);
+                    b[cargs[1]] *= 2;
+                }
+            }catch(e){}
+            return old.apply(this,arguments);
+        }
+    });
+    restore(vm.runtime._primitives,"data_changevariableby");
+    hook(vm.runtime._primitives,"data_changevariableby",old=>{
+        const sprite = vm.runtime.targets[1];
+        const id = getlocalid(sprite,"shoot wait");
+        const ops = new WeakSet;
+        return function(b, th) {
+            try{
+                if (b.VARIABLE.id === id && b.VALUE == 5) {
+                    b.VALUE = 1;
+                }
+            }catch(e){}
+            return old.apply(this,arguments);
+        }
+    });
+    restore(vm.runtime.sequencer,"stepThreads");
+    hook(vm.runtime.sequencer,"stepThreads",old=>{
+        const shoot = vm.runtime.targets[0].variables[getid("_Shoot")];
+        const hitid = vm.runtime.targets[0].variables[getid("_Hit ID")];
+        const entities = getsprite("Entities");
+        const crosshair = getsprite("Crosshair");
+        const pid = getlocalid("Entities","Player ID");
+        function dist(a,b) {
+            return Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2);
+        }
+        let last = null;
+        return function() {
+            const r = old.apply(this,arguments);
+            try{
+                if (shoot.value > 0 && hitid.value == 0) {
+                    let r = 100, rv = null;
+                    for(let p of entities.sprite.clones) {
+                        if (!p.visible) continue;
+                        const d = dist(crosshair, p);
+                        if (d < r) {
+                            r = d;
+                            rv = p;
+                        }
+                    }
+                    if (last != rv && last != null) {
+                        last.clearEffects();
+                    }
+                    if (rv != null) {
+                        hitid.value = rv.variables[pid].value;
+                        rv.setEffect("color",100);
+                    }
+                    last = rv;
+                } else if (last != null) {
+                    last.clearEffects();
+                }
+            }catch(e){ console.warn(e) }
+            return r;
+        }
+    })
+    vm.runtime.targets.forEach(v=>v.blocks.resetCache());
+
     let obj = vm.runtime.targets[0].blocks._blocks['=hr*2JdBoq7da2!tZ{zw'].inputs.OPERAND2;
     obj = vm.runtime.targets[0].blocks._blocks[obj.block];
     obj.fields = {};
@@ -82,12 +150,6 @@
     vm.runtime.targets[0].blocks.resetCache();
     vm.runtime.targets[0].blocks.emitProjectChanged();
     vm.runtime.requestBlocksUpdate();
-    let szid = vm.runtime.targets[1].blocks._blocks["j)jMpHg,~`9{I6:%CDEC"].inputs.VALUE.block;
-    vm.runtime.targets[1].blocks._blocks[szid].fields.NUM.value = -0.0025;
-    let sxid = vm.runtime.targets[1].blocks._blocks["5C@Cd8.pfaC/ECuSEpTx"].inputs.NUM2.block;
-    vm.runtime.targets[1].blocks._blocks[sxid].fields.NUM.value = 0.9;
-    let syid = vm.runtime.targets[1].blocks._blocks[":BwsP.n8XXrfmNXb83P*"].inputs.NUM2.block;
-    vm.runtime.targets[1].blocks._blocks[syid].fields.NUM.value = 0.9;
-    vm.runtime.targets[1].blocks.resetCache();
-    vm.runtime.targets[1].blocks.emitProjectChanged();
-})()
+    if (vm.runtime.threads.length > 0)
+        vm.runtime._pushThread("HvPPj(QTW*j!FMdso95p",vm.runtime.targets[0]);
+})();

@@ -1251,6 +1251,7 @@
     }
     setInterval(()=>{setlocal("Game","clock",1)},0);
     window.tp = function(p) {
+        p=p.toUpperCase();
         let plrs = vm.runtime.targets[4].sprite.clones;
         for (let i in plrs) {
             if (plrs[i].variables["%?ot.iQuUk5;BfW32u|W"].value == p) {
@@ -1271,11 +1272,10 @@
                 };
                 if (th.thread.target.getName() === "Blank" && b.mutation.proccode === "set %s %s") { // block used for communication
                     CONFIG[args[0]] = args[1];
-                    console.warn(args, cargs);
                 } else if (th.thread.target.getName() === "Game" && b.mutation.proccode.includes("accelerate")) {
                     b[cargs[0]] *= Number(CONFIG.speed) || 1;
                 }
-            } catch (e) { }
+            } catch (e) {}
             return old.apply(this, arguments)
         }
     });
@@ -1291,7 +1291,7 @@
                         jumps.set(b, b.VALUE);
                         b.VALUE *= Number(CONFIG.jump) || 1;
                     }
-                } catch (e) { console.warn(e) }
+                } catch (e) {}
             }
             return old.apply(this, arguments);
         }
