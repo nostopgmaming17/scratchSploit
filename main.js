@@ -264,6 +264,7 @@
         e._events.ANSWER.pop(l);
         return a;
     };
+<<<<<<< HEAD
     (()=>{
         const i = setInterval(()=>{
             try{
@@ -273,3 +274,6 @@
         },100);
     })();
 })();
+=======
+})();
+>>>>>>> f7a2547ae15938ece296092d6b25de7e1dfbbf9c
