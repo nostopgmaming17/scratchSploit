@@ -54,28 +54,6 @@
             return reflect.apply(f, spoof.get(th)||th, args);
         }
     })
-    hook(Object.prototype,"hasOwnProperty",old=>{
-        return function(...a) {
-            try{
-                if (this["scratch3_control"] != null) {
-                    window.blocks = this;
-                    Object.prototype.hasOwnProperty = old;
-                }
-            }catch(e){}
-            return old.apply(this,a);
-        }
-    });
-    hookp(Object.prototype,"hasOwnProperty",{
-        apply(f, th, args) {
-            try{
-                if (th["scratch3_control"] != null) {
-                    window.blocks = th;
-                    Object.prototype.hasOwnProperty = f;
-                }
-            }catch(e){}
-            return reflect.apply(f, th, args);
-        }
-    })
     window.sleep = async ms => {
         return new Promise(resolve => setTimeout(resolve,ms));
     }
@@ -264,7 +242,6 @@
         e._events.ANSWER.pop(l);
         return a;
     };
-<<<<<<< HEAD
     (()=>{
         const i = setInterval(()=>{
             try{
@@ -274,6 +251,3 @@
         },100);
     })();
 })();
-=======
-})();
->>>>>>> f7a2547ae15938ece296092d6b25de7e1dfbbf9c
