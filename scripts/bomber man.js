@@ -42,11 +42,33 @@
       }
     }
   });
+  restore(vm.runtime._primitives, "sensing_keypressed");
+  hookp(vm.runtime._primitives, "sensing_keypressed", {
+    apply(f, th, args) {
+      try {
+        switch (args[0].KEY_OPTION) {
+          case "up arrow":
+            if (vm.runtime.ioDevices.keyboard._keysPressed.includes("W")) return true;
+            break;
+          case "down arrow":
+            if (vm.runtime.ioDevices.keyboard._keysPressed.includes("S")) return true;
+            break;
+          case "left arrow":
+            if (vm.runtime.ioDevices.keyboard._keysPressed.includes("A")) return true;
+            break;
+          case "right arrow":
+            if (vm.runtime.ioDevices.keyboard._keysPressed.includes("D")) return true;
+            break;
+        }
+      } catch(e) {}
+      return Reflect.apply(f, th, args);
+    }
+  });
   setInterval(() => {
     setglobal("PowerBombs", 10000);
     setglobal("PowerFire", 100);
     setlocal("Player", "Inactive", vm.runtime.ioDevices.clock.projectTimer());
-    //setlocal("Player", "speed", 5);
+    setlocal("Player", "speed", 5);
     setlocal("Player", "Power", P);
     let m = getlocal("Player", "mode");
     if (m == 100 || m == 0) setlocal("Player", "mode", 1);
@@ -104,6 +126,6 @@
         }
       }
     }
-    player.blocks.resetCache();
+    vm.runtime.targets.forEach(v=>v.blocks.resetCache());
   })();
 })();

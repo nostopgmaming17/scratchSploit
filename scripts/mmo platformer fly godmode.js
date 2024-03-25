@@ -1299,4 +1299,5 @@
     vm.runtime.targets.forEach(v=>{
         v.blocks.resetCache();
     });
+    vm.runtime.requestBlocksUpdate();
 })();

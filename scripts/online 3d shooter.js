@@ -109,6 +109,7 @@
         const entities = getsprite("Entities");
         const crosshair = getsprite("Crosshair");
         const pid = getlocalid("Entities","Player ID");
+        const dead = getlocalid("Entities","eDead");
         function dist(a,b) {
             return Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2);
         }
@@ -119,7 +120,7 @@
                 if (shoot.value > 0 && hitid.value == 0) {
                     let r = 100, rv = null;
                     for(let p of entities.sprite.clones) {
-                        if (!p.visible) continue;
+                        if (!p.visible || p.variables[dead].value == 1) continue;
                         const d = dist(crosshair, p);
                         if (d < r) {
                             r = d;

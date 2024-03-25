@@ -1,6 +1,11 @@
 (function() {
     "use strict";
     console.log("Loaded");
+    const proxy = Proxy;
+    const reflect = {};
+    for(let k of Object.getOwnPropertyNames(Reflect)) {
+        reflect[k] = Reflect[k];
+    }
     let vm;
     const spoof = new WeakMap;
     const hook = function(o,n,f){
@@ -11,6 +16,11 @@
             value: old.name
         });
         o[n] = cb;
+    }
+    const hookp = function(o,n,h) {
+        const p = new proxy(o[n],h);
+        spoof.set(p,o[n]);
+        o[n] = p;
     }
     const restore = function(o,n) {
         let f = o[n];
@@ -24,25 +34,26 @@
         return f;
     }
     window.hook = hook;
+    window.hookp = hookp;
     window.restore = restore;
-    hook(Function.prototype,"bind",old=>{
-        return function(...args) {
-            try {
+    hookp(Function.prototype,"bind",{
+        apply(f, th, args) {
+            try{
                 if (args[0].runtime != null && args[0].hasOwnProperty("editingTarget")) {
                     console.warn("%cSuccessfully logged VM & Have fun trolling and shit", "color: #ff4d36; font-size:200%");
                     vm = args[0];
                     window.vm = vm;
-                    Function.prototype.bind = old;
+                    Function.prototype.bind = f;
                 }
-            } catch (e) {}
-            return old.apply(this, args)
-        };
-    });
-    hook(Function.prototype,"toString", old=>{
-        return function() {
-            return old.apply(spoof.get(this)||this,arguments);
+            }catch(e){}
+            return reflect.apply(f, th, args);
         }
-    });
+    })
+    hookp(Function.prototype,"toString", {
+        apply(f, th, args) {
+            return reflect.apply(f, spoof.get(th)||th, args);
+        }
+    })
     hook(Object.prototype,"hasOwnProperty",old=>{
         return function(...a) {
             try{
@@ -54,6 +65,17 @@
             return old.apply(this,a);
         }
     });
+    hookp(Object.prototype,"hasOwnProperty",{
+        apply(f, th, args) {
+            try{
+                if (th["scratch3_control"] != null) {
+                    window.blocks = th;
+                    Object.prototype.hasOwnProperty = f;
+                }
+            }catch(e){}
+            return reflect.apply(f, th, args);
+        }
+    })
     window.sleep = async ms => {
         return new Promise(resolve => setTimeout(resolve,ms));
     }
@@ -242,4 +264,12 @@
         e._events.ANSWER.pop(l);
         return a;
     };
+    (()=>{
+        const i = setInterval(()=>{
+            try{
+                vm.runtime.on("ANSWER",A=>window.ANSWER=A);
+                clearInterval(i);
+            }catch(e){}
+        },100);
+    })();
 })();
