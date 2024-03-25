@@ -40,7 +40,7 @@
         apply(f, th, args) {
             try{
                 if (args[0].runtime != null && args[0].hasOwnProperty("editingTarget")) {
-                    console.warn("%cSuccessfully logged VM & Have fun trolling and shit", "color: #ff4d36; font-size:200%");
+                    console.log("%cSuccessfully logged VM & Have fun trolling and shit", "color: #ff4d36; font-size:200%");
                     vm = args[0];
                     window.vm = vm;
                     Function.prototype.bind = f;
@@ -48,12 +48,32 @@
             }catch(e){}
             return reflect.apply(f, th, args);
         }
-    })
+    });
     hookp(Function.prototype,"toString", {
         apply(f, th, args) {
             return reflect.apply(f, spoof.get(th)||th, args);
         }
-    })
+    });
+    (()=>{
+        const accessor = Object.getOwnPropertyDescriptor(XMLHttpRequest.prototype,"response");
+        Object.defineProperty(XMLHttpRequest.prototype,"response",{
+            get() {
+                try{
+                    if (this.url.endsWith("/session/")) {
+                        const r = accessor.get.call(this);
+                        try{
+                            if (r.permissions != null) {
+                                r.permissions.new_scratcher = false;
+                                r.permissions.scratcher = true;
+                                return r;
+                            }
+                        }catch(e){}
+                    }
+                } catch(e) {}
+                return accessor.get.call(this);
+            }
+        })
+    })();
     window.sleep = async ms => {
         return new Promise(resolve => setTimeout(resolve,ms));
     }
