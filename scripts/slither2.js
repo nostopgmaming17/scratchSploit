@@ -47,20 +47,6 @@
             return Reflect.apply(f, th, args);
         }
     });
-    restore(vm.runtime._primitives,"procedures_call");
-    hookp(vm.runtime._primitives,"procedures_call", {
-        apply(f, th, args) {
-            try{
-                if (args[1].thread.target.getName() == "Game" && args[0].mutation.proccode.startsWith("Spawn Collect")) {
-                    const cargs = JSON.parse(args[0].mutation.argumentids);
-                    const siz = Math.max(2.5,Number(args[0][cargs[3]]));
-                    if (!isNaN(siz))
-                        args[0][cargs[3]] = siz;
-                }
-            } catch(e) {}
-            return Reflect.apply(f, th, args);
-        }
-    });
     let diepress = false;
     setInterval(()=>{
         if (vm.runtime.ioDevices.keyboard._keysPressed.includes("W")) {
@@ -69,26 +55,9 @@
             setlocal("Game","power",1);
         }
         if (diepress&&!vm.runtime.ioDevices.keyboard._keysPressed.includes("F")&&(diepress=false),!diepress&&(diepress=vm.runtime.ioDevices.keyboard._keysPressed.includes("F"))) {
+            console.log(1000);
             setglobal("KilledBy",getlocal("Multiplayer","@Player ID"))
         }
     },0);
     vm.runtime.targets.forEach(v=>v.blocks.resetCache());
 })();
-
-/*
-(()=>{
-    const inc = 1000;
-    let w = getlocal("Game", "w");
-    setlocal("Game", "MyLen", getlocal("Game", "MyLen") + inc * 2);
-    setlocal("Game", "parseIdx", getlocal("Game", "parseIdx") + inc * 2);
-    for (let i = 0; i < inc; i++) {
-        w.push(getlocal("Game", "x"));
-        w.push(getlocal("Game", "y"));
-    }
-})();
-*/
-
-/*
-setlocal("Multiplayer","griffpatch",25)
-setlocal("Multiplayer","Game Revision",25)
-*/
