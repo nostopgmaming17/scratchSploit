@@ -69,6 +69,9 @@
     let diepress = false;
     let kickpress = false;
     setInterval(()=>{
+        setlocal("Game","actionHashChange",vm.runtime.ioDevices.clock._projectTimer.timeElapsed()/1000+100); // anti afk
+        setlocal("Multiplayer","Network Issues 2",0); // anti cloud kick
+        setlocal("Game","too slow",0); // anti too slow kick
         if (vm.runtime.ioDevices.keyboard._keysPressed.includes("W")) {
             setlocal("Game","power",5);
         } else {
