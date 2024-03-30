@@ -255,10 +255,10 @@
     window.ANSWER = "";
     window.ask = async function(question) {
         vm.runtime.emit("QUESTION",question);
-        let a = "";
+        let a = null;
         let e = vm.runtime.on("ANSWER",(A)=>{a=A})
         let l = e._events.ANSWER.length;
-        while (a == "") {await new Promise(resolve => setTimeout(resolve, 100));};
+        while (a == null) {await new Promise(resolve => setTimeout(resolve, 100));};
         e._events.ANSWER.pop(l);
         return a;
     };

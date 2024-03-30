@@ -3,11 +3,16 @@
 (()=>{
     const killedby = getid("KilledBy");
     const facing = getlocalid("Game","facing")
+    const pid = getlocalid("Multiplayer","@Player ID");
     restore(vm.runtime._primitives,"data_setvariableto");
     hookp(vm.runtime._primitives,"data_setvariableto",{
         apply(f, th, args) {
             try{
                 if (args[0].VARIABLE.id === killedby && args[0].VALUE >= 0) {
+                    return;
+                } else if (args[0].VARIABLE.id === pid && args[0].VALUE < 0) {
+                    const i = getlocal("Multiplayer","i"), pnames = getglobal("@PlayerNames");
+                    console.warn(pnames[Math.max(i-1,0)],"tried to kick you");
                     return;
                 }
             }catch(e){}
@@ -62,6 +67,7 @@
         }
     });
     let diepress = false;
+    let kickpress = false;
     setInterval(()=>{
         if (vm.runtime.ioDevices.keyboard._keysPressed.includes("W")) {
             setlocal("Game","power",5);
@@ -70,6 +76,23 @@
         }
         if (diepress&&!vm.runtime.ioDevices.keyboard._keysPressed.includes("F")&&(diepress=false),!diepress&&(diepress=vm.runtime.ioDevices.keyboard._keysPressed.includes("F"))) {
             setglobal("KilledBy",getlocal("Multiplayer","@Player ID"))
+        }
+        if (kickpress&&!vm.runtime.ioDevices.keyboard._keysPressed.includes("R")&&(diepress=false),!diepress&&(diepress=vm.runtime.ioDevices.keyboard._keysPressed.includes("R"))) {
+            const place = getglobal("@Place"), pnames = getglobal("@PlayerNames");
+            showvariable("@PlayerNames");
+            ask("Enter player to kick").then(ans=>{
+                hidevariable("@PlayerNames")
+                if (!pnames.includes(ans.toUpperCase())) return;
+                place.push(0);
+                place.push("k"+ans.toUpperCase());
+                const inter = setInterval(()=>{
+                    place.push(0);
+                    place.push("k"+ans.toUpperCase());
+                },500);
+                setTimeout(()=>{
+                    clearInterval(inter);
+                },5e3);
+            });
         }
     },0);
     vm.runtime.targets.forEach(v=>v.blocks.resetCache());
