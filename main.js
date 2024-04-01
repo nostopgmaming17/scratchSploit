@@ -65,12 +65,25 @@
                             if (r.permissions != null) {
                                 r.permissions.new_scratcher = false;
                                 r.permissions.scratcher = true;
+                                r.user.banned = false;
                                 return r;
                             }
                         }catch(e){}
                     }
                 } catch(e) {}
                 return accessor.get.call(this);
+            }
+        });
+        const m = new WeakMap;
+        Object.defineProperty(Object.prototype,"thread",{
+            get() {
+                return m.get(this);
+            },
+            set(v) {
+                if (Reflect.getOwnPropertyDescriptor(this,"sequencer") !== undefined && window.thread != this) {
+                    window.thread = this;
+                }
+                return m.set(this, v);
             }
         })
     })();
@@ -261,6 +274,30 @@
         while (a == null) {await new Promise(resolve => setTimeout(resolve, 100));};
         e._events.ANSWER.pop(l);
         return a;
+    };
+    window.runfunc = function(target,name,args) {
+        if (arguments.length < 3) return;
+        const def = target.blocks._blocks[target.blocks._cache.procedureDefinitions[name]] || target.blocks._blocks[target.blocks.getProcedureDefinition(name)];
+        const pro = target.blocks._blocks[def.inputs.custom_block.block];
+        const mut = pro.mutation;
+        const cargs = JSON.parse(mut.argumentids);
+        const o = {
+            mutation: {
+                argumentids: mut.argumentids,
+                children: [],
+                proccode: name,
+                tagName: "mutation",
+                warp: mut.warp
+            }
+        }
+        for(let i=0;i<cargs.length;i++){
+            o[cargs[i]] = args[i];
+        }
+        const th = vm.runtime._pushThread(def.id,target);
+        thread.thread = th;
+        thread.sequencer = vm.runtime.sequencer;
+        vm.runtime._primitives.procedures_call(o,thread);
+        th.stack.splice(0,1);
     };
     (()=>{
         const i = setInterval(()=>{
