@@ -65,6 +65,7 @@
         apply(f, th, args) {
             if (flying){
                 switch(args[0].VARIABLE.name){
+                    case "Xv":
                     case "Yv2":
                     case "Falling":
                         args[0].VALUE = 0;
