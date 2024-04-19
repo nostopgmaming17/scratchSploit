@@ -26,7 +26,7 @@
     restore(vm.runtime._primitives,"data_setvariableto");
     hook(vm.runtime._primitives,"data_setvariableto",old=>{
         return function(b,th) {
-            if (b.VARIABLE.name == "Yv2" && b.VALUE == -100) {
+            if (b.VARIABLE.name == "Yv2" && b.VALUE < 0) {
                 return;
             } else if (b.VARIABLE.name == "Xv" && b.VALUE == 0) {
                 const bid = th.thread.stack[th.thread.stack.length-1];
@@ -43,4 +43,36 @@
     });
     vm.runtime.targets.forEach(v=>v.blocks.resetCache());
     runfunc(lac,"flag %s %s %s %s %s %s %s",["Loaded","Loaded up disabler",0,0,0,0,0])
+})();
+
+(()=>{
+    // Fly script F to toggle WASD controls
+    if (window.inter != null) clearInterval(window.inter);
+    let pressed = false;
+    let flying = false;
+    window.inter = setInterval(()=>{
+        if (pressed&&(pressed=vm.runtime.ioDevices.keyboard._keysPressed.includes("F")),!pressed&&(pressed=vm.runtime.ioDevices.keyboard._keysPressed.includes("F"))) {
+            flying = !flying;
+        }
+        let w=vm.runtime.ioDevices.keyboard._keysPressed.includes("W"),a=vm.runtime.ioDevices.keyboard._keysPressed.includes("A"),s=vm.runtime.ioDevices.keyboard._keysPressed.includes("S"),d=vm.runtime.ioDevices.keyboard._keysPressed.includes("D");
+        if (!flying) return;
+        setglobal("Xv",d*5 - a*5);
+        setglobal("Yv2",w*5 - s*5);
+        setglobal("Falling",0);
+    });
+    restore(vm.runtime._primitives,"data_changevariableby");
+    hookp(vm.runtime._primitives,"data_changevariableby",{
+        apply(f, th, args) {
+            if (flying){
+                switch(args[0].VARIABLE.name){
+                    case "Yv2":
+                    case "Falling":
+                        args[0].VALUE = 0;
+                }
+            } else if (args[0].VARIABLE.name == "Falling")
+                args[0].VALUE = 1;
+            return Reflect.apply(f, th, args);
+        }
+    });
+    vm.runtime.targets.forEach(v=>v.blocks.resetCache());
 })();
