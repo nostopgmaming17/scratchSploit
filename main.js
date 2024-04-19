@@ -33,9 +33,19 @@
         o[n] = f;
         return f;
     }
+    const getnative = function(o,n) {
+        let f = o[n];
+        while (true) {
+            if (!spoof.has(f))
+                break;
+            f = spoof.get(f);
+        }
+        return f;
+    }
     window.hook = hook;
     window.hookp = hookp;
     window.restore = restore;
+    window.getnative = getnative;
     hookp(Function.prototype,"bind",{
         apply(f, th, args) {
             try{
@@ -297,7 +307,7 @@
         th.stack[0] = null;
         thread.thread = th;
         thread.sequencer = vm.runtime.sequencer;
-        vm.runtime._primitives.procedures_call(o,thread);
+        getnative(vm.runtime._primitives,"procedures_call")(o,thread);
         return th;
     };
     (()=>{
