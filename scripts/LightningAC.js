@@ -8,7 +8,6 @@
         return function(b, th) {
             if (b.BROADCAST_OPTION.name === "lac.setback" || b.BROADCAST_OPTION.name == "lac.ban")
                 return;
-            console.log(b.BROADCAST_OPTION.name)
             return old.apply(this,arguments);
         }
     })
@@ -43,5 +42,5 @@
         }
     });
     vm.runtime.targets.forEach(v=>v.blocks.resetCache());
-    getglobal("Console").push("Loaded up bypass");
+    runfunc(lac,"flag %s %s %s %s %s %s %s",["Loaded","Loaded up disabler",0,0,0,0,0])
 })();
