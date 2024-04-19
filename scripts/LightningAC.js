@@ -1,5 +1,6 @@
+// You need to install the extension for this script to work
+
 (()=>{
-    const workspace = Blockly.getMainWorkspace();
     const lac = vm.runtime.targets[2];
     const plr = vm.runtime.targets[3];
     restore(vm.runtime._primitives,"event_broadcast");
@@ -41,7 +42,6 @@
             return old.apply(this,arguments);
         }
     });
-    vm.runtime.targets.forEach(v=>{
-        v.blocks.resetCache();
-    })
+    vm.runtime.targets.forEach(v=>v.blocks.resetCache());
+    getglobal("Console").push("Loaded up bypass");
 })();

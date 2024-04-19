@@ -294,10 +294,11 @@
             o[cargs[i]] = args[i];
         }
         const th = vm.runtime._pushThread(def.id,target);
+        th.stack[0] = null;
         thread.thread = th;
         thread.sequencer = vm.runtime.sequencer;
         vm.runtime._primitives.procedures_call(o,thread);
-        th.stack.splice(0,1);
+        return th;
     };
     (()=>{
         const i = setInterval(()=>{
