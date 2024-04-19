@@ -50,7 +50,7 @@
         apply(f, th, args) {
             try{
                 if (args[0].runtime != null && args[0].hasOwnProperty("editingTarget")) {
-                    console.log("%cSuccessfully logged VM & Have fun trolling and shit", "color: #ff4d36; font-size:200%");
+                    console.log("%cSuccessfully logged VM & Have fun trolling and shit (Extension)", "color: #ff4d36; font-size:200%");
                     vm = args[0];
                     window.vm = vm;
                     Function.prototype.bind = f;
@@ -59,6 +59,12 @@
             return reflect.apply(f, th, args);
         }
     });
+    vm = document.getElementById('app')?._reactRootContainer?._internalRoot?.current?.child?.pendingProps?.store?.getState()?.scratchGui?.vm;
+    if (vm != null) {
+        console.log("%cSuccessfully logged VM & Have fun trolling and shit (Unpack extension to auto-inject)", "color: #ff4d36; font-size:200%");
+        restore(Function.prototype,"bind");
+        window.vm = vm;
+    }
     hookp(Function.prototype,"toString", {
         apply(f, th, args) {
             return reflect.apply(f, spoof.get(th)||th, args);
