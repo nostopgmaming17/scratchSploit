@@ -33,8 +33,7 @@
         o[n] = f;
         return f;
     }
-    const getnative = function(o,n) {
-        let f = o[n];
+    const getnative = function(f) {
         while (true) {
             if (!spoof.has(f))
                 break;
@@ -313,7 +312,7 @@
         th.stack[0] = null;
         thread.thread = th;
         thread.sequencer = vm.runtime.sequencer;
-        getnative(vm.runtime._primitives,"procedures_call")(o,thread);
+        getnative(vm.runtime._primitives.procedures_call)(o,thread);
         return th;
     };
     (()=>{
