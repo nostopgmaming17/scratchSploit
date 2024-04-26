@@ -56,8 +56,8 @@
         }
         let w=vm.runtime.ioDevices.keyboard._keysPressed.includes("W"),a=vm.runtime.ioDevices.keyboard._keysPressed.includes("A"),s=vm.runtime.ioDevices.keyboard._keysPressed.includes("S"),d=vm.runtime.ioDevices.keyboard._keysPressed.includes("D");
         if (!flying) return;
-        setglobal("Xv",d*5 - a*5);
-        setglobal("Yv2",w*5 - s*5);
+        setglobal("Xv",d*15 - a*15);
+        setglobal("Yv2",w*15 - s*15);
         setglobal("Falling",0);
     });
     restore(vm.runtime._primitives,"data_changevariableby");

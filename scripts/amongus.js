@@ -15,6 +15,16 @@
             return Reflect.apply(f, th, args);
         }
     });
+    restore(vm.runtime._primitives,"control_stop");
+    hookp(vm.runtime._primitives,"control_stop",{
+        apply(f, th, args) {
+            if (args[0].STOP_OPTION == "all") {
+                console.warn("Prevented stop all")
+                return;
+            }
+            return Reflect.apply(f, th, args);
+        }
+    });
     restore(vm.runtime._primitives,"data_setvariableto");
     hookp(vm.runtime._primitives,"data_setvariableto",{
         apply(f, th, args) {
