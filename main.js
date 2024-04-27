@@ -307,7 +307,7 @@
             let match = true;
             const blockA = [];
             for (let i = 0; i < opcodes.length; i++) {
-                if (typeof(opcodes[i]) == "string") blockA.push(cblock);
+                if (typeof(opcodes[i]) == "string" && !opcodes[i].toLowerCase().startsWith("input.")) blockA.push(cblock);
                 if (typeof(opcodes[i]) == "string" && opcodes[i] != "=" && (cblock == null || cblock.opcode != opcodes[i])) {
                     match = false;
                     break
