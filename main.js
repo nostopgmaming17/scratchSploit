@@ -290,35 +290,47 @@
         e._events.ANSWER.pop(l);
         return a;
     };
-    window.patternscan = function(_sprite,opcodes) { // example for opcodes: ["control_if_else","input.condition","operator_gt","input.operand1","data_variable"]
+    window.patternscan = function(_sprite,opcodes) { // example for opcodes: ["control_if_else","input.condition","operator_gt","input.operand1","data_variable",0,"input.substack","control_if","input.substack","data_addtolist"]
         const sprite = typeof(_sprite)=="object"?_sprite:getsprite(_sprite);
         const blocks = sprite.blocks._blocks;
         let ret = [];
-        for(let id in blocks) {
+        for (let id in blocks) {
             const block = blocks[id];
             let cblock = block;
             let match = true;
             const blockA = [];
-            for(let i=0;i<opcodes.length;i++) {
-                blockA.push(cblock);
-                if (cblock == null || cblock.opcode != opcodes[i]) {
+            for (let i = 0; i < opcodes.length; i++) {
+                if (typeof(opcodes[i]) == "string") blockA.push(cblock);
+                if (typeof(opcodes[i]) == "string" && (cblock == null || cblock.opcode != opcodes[i])) {
                     match = false;
                     break
                 }
                 if (i + 1 == opcodes.length)
                     break;
-                if (opcodes[i+1].toLowerCase().startsWith("input.")) {
-                    const inp = opcodes[i+1].split(".")[1].toUpperCase();
-                    if (cblock != null && cblock.inputs[inp] != null) {
+                if (typeof(opcodes[i+1]) == "string" && opcodes[i+1].toLowerCase().startsWith("input.")) {
+                    const inp = opcodes[i + 1].substr(6).toUpperCase();
+                    if (cblock == null) {
+                        match = false;
+                        break;
+                    }
+                    if (cblock.inputs[inp] != null) {
                         cblock = blocks[cblock.inputs[inp].block];
+                        i++;
+                        continue;
+                    } else if (cblock.inputs[inp.toLowerCase()] != null) {
+                        cblock = blocks[cblock.inputs[inp.toLowerCase()].block];
                         i++;
                         continue;
                     }
                     match = false;
                     break;
+                } else if (typeof (opcodes[i + 1]) == "number") {
+                    cblock = blockA[opcodes[i + 1]];
+                    continue;
                 }
                 cblock = blocks[cblock.next];
             }
+            blockA.push(cblock);
             if (match)
                 ret.push(blockA);
         }
