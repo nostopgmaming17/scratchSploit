@@ -290,6 +290,26 @@
         e._events.ANSWER.pop(l);
         return a;
     };
+    window.patternscan = function(_sprite,opcodes) {
+        const sprite = typeof(_sprite)=="object"?_sprite:getsprite(_sprite);
+        const blocks = sprite.blocks._blocks;
+        let ret = [];
+        for(let id in blocks) {
+            const block = blocks[id];
+            let cblock = block;
+            let match = true;
+            for(let i=0;i<opcodes.length;i++) {
+                if (cblock == null || cblock.opcode != opcodes[i]) {
+                    match = false;
+                    break
+                }
+                cblock = blocks[cblock.next];
+            }
+            if (match)
+                ret.push(block);
+        }
+        return ret;
+    }
     window.runfunc = function(target,name,args) {
         if (arguments.length < 3) return;
         const def = target.blocks._blocks[target.blocks._cache.procedureDefinitions[name]] || target.blocks._blocks[target.blocks.getProcedureDefinition(name)];
