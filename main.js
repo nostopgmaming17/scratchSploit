@@ -295,7 +295,7 @@
         opcode compare (ex: data_setvariableto)
         input (ex: input.substack)
         goto (number of block it went over already)
-        = (adds next block to record)
+        = (any opcode)
     */
     window.patternscan = function(_sprite,opcodes) { // example for opcodes: ["control_if_else","input.condition","operator_gt","input.operand1","data_variable",0,"input.substack","control_if","input.substack","data_addtolist"]
         const sprite = typeof(_sprite)=="object"?_sprite:getsprite(_sprite);
