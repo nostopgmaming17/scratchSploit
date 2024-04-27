@@ -290,6 +290,13 @@
         e._events.ANSWER.pop(l);
         return a;
     };
+    /*
+    opcodes:
+        opcode (ex: data_setvariableto)
+        input (ex: input.substack)
+        goto (number of block it went over already)
+        = (adds current block to record)
+    */
     window.patternscan = function(_sprite,opcodes) { // example for opcodes: ["control_if_else","input.condition","operator_gt","input.operand1","data_variable",0,"input.substack","control_if","input.substack","data_addtolist"]
         const sprite = typeof(_sprite)=="object"?_sprite:getsprite(_sprite);
         const blocks = sprite.blocks._blocks;
@@ -301,7 +308,7 @@
             const blockA = [];
             for (let i = 0; i < opcodes.length; i++) {
                 if (typeof(opcodes[i]) == "string") blockA.push(cblock);
-                if (typeof(opcodes[i]) == "string" && (cblock == null || cblock.opcode != opcodes[i])) {
+                if (typeof(opcodes[i]) == "string" && opcodes[i] != "=" && (cblock == null || cblock.opcode != opcodes[i])) {
                     match = false;
                     break
                 }
@@ -330,7 +337,6 @@
                 }
                 cblock = blocks[cblock.next];
             }
-            blockA.push(cblock);
             if (match)
                 ret.push(blockA);
         }
