@@ -5,7 +5,7 @@
 (()=>{
     let pattern = patternscan(vm.runtime.targets[1],["event_whenflagclicked","motion_gotoxy","data_setvariableto","data_setvariableto","data_setvariableto"])[0];
     const motionx = pattern[3].fields.VARIABLE.value, motiony = pattern[4].fields.VARIABLE.value;
-    pattern = patternscan(vm.runtime.targets[1],["procedures_definition","looks_say",0,"input.custom_block","="])
+    pattern = patternscan(vm.runtime.targets[1],["procedures_definition","looks_say",0,"input.custom_block"])
     const flag = pattern[0][2].mutation.proccode;
     const sprite = getsprite("Sprite1");
     restore(vm.runtime._primitives,"procedures_call");
