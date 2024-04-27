@@ -290,7 +290,7 @@
         e._events.ANSWER.pop(l);
         return a;
     };
-    window.patternscan = function(_sprite,opcodes) {
+    window.patternscan = function(_sprite,opcodes) { // example for opcodes: ["control_if_else","input.condition","operator_gt","input.operand1","data_variable"]
         const sprite = typeof(_sprite)=="object"?_sprite:getsprite(_sprite);
         const blocks = sprite.blocks._blocks;
         let ret = [];
@@ -298,17 +298,40 @@
             const block = blocks[id];
             let cblock = block;
             let match = true;
+            const blockA = [];
             for(let i=0;i<opcodes.length;i++) {
+                blockA.push(cblock);
                 if (cblock == null || cblock.opcode != opcodes[i]) {
                     match = false;
                     break
                 }
+                if (i + 1 == opcodes.length)
+                    break;
+                if (opcodes[i+1].toLowerCase().startsWith("input.")) {
+                    const inp = opcodes[i+1].split(".")[1].toUpperCase();
+                    if (cblock != null && cblock.inputs[inp] != null) {
+                        cblock = blocks[cblock.inputs[inp].block];
+                        i++;
+                        continue;
+                    }
+                    match = false;
+                    break;
+                }
                 cblock = blocks[cblock.next];
             }
             if (match)
-                ret.push(block);
+                ret.push(blockA);
         }
         return ret;
+    }
+    window.varbyid = function(id) {
+        for (let i=0;i<vm.runtime.targets.length;i++) {
+            const target = vm.runtime.targets[i];
+            for (let v in target.variables) {
+                if (v == id)
+                    return target.variables[v];
+            }
+        }
     }
     window.runfunc = function(target,name,args) {
         if (arguments.length < 3) return;
