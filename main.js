@@ -374,7 +374,7 @@
             o[cargs[i]] = args[i];
         }
         const th = vm.runtime._pushThread(def.id,target);
-        th.stack[0] = null;
+        th.stack[0] = Object.keys(target.blocks._blocks)[0];
         hookp(th,"popStack",{
             apply(f, self, args) {
                 delete self.popStack;
