@@ -374,11 +374,13 @@
             o[cargs[i]] = args[i];
         }
         const th = vm.runtime._pushThread(def.id,target);
-        hookp(th.stack,"push",{
-            apply(f, thi, args) {
-                delete th.stack.push;
-                th.popStack();
-                return Reflect.apply(f, thi, args);
+        th.stack[0] = null;
+        hookp(th,"popStack",{
+            apply(f, self, args) {
+                delete self.popStack;
+                if (self.stack.length == 2)
+                    Reflect.apply(f, th, args);
+                return Reflect.apply(f, th, args);
             }
         });
         thread.thread = th;
