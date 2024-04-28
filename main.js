@@ -374,7 +374,13 @@
             o[cargs[i]] = args[i];
         }
         const th = vm.runtime._pushThread(def.id,target);
-        th.stack[0] = null;
+        hookp(th.stack,"push",{
+            apply(f, thi, args) {
+                delete th.stack.push;
+                th.popStack();
+                return Reflect.apply(f, thi, args);
+            }
+        });
         thread.thread = th;
         thread.sequencer = vm.runtime.sequencer;
         getnative(vm.runtime._primitives.procedures_call)(o,thread);
