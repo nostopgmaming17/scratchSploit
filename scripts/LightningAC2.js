@@ -33,7 +33,7 @@
     });
     patternscan(lac,["event_broadcast_menu"]).forEach(v=>{
         if (v[0].fields.BROADCAST_OPTION.value == "lac.setback"){
-            v[0].fields.BROADCAST_OPTION.value = "";
+            v[0].fields.BROADCAST_OPTION.value = "nothing";
             v[0].fields.BROADCAST_OPTION.id = "";
         }
     })
