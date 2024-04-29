@@ -319,17 +319,21 @@
                 if (i + 1 == opcodes.length)
                     break;
                 if (typeof(opcodes[i+1]) == "string" && opcodes[i+1].toLowerCase().startsWith("input.")) {
-                    const inp = opcodes[i + 1].substr(6).toUpperCase();
+                    const inp = opcodes[i + 1].substr(6);
                     if (cblock == null) {
                         match = false;
                         break;
                     }
-                    if (cblock.inputs[inp] != null) {
-                        cblock = blocks[cblock.inputs[inp].block];
+                    if (cblock.inputs[inp.toUpperCase()] != null) {
+                        cblock = blocks[cblock.inputs[inp.toUpperCase()].block];
                         i++;
                         continue;
                     } else if (cblock.inputs[inp.toLowerCase()] != null) {
                         cblock = blocks[cblock.inputs[inp.toLowerCase()].block];
+                        i++;
+                        continue;
+                    } else if (cblock.inputs[inp] != null) {
+                        cblock = blocks[cblock.inputs[inp].block];
                         i++;
                         continue;
                     }
@@ -374,7 +378,6 @@
             o[cargs[i]] = args[i];
         }
         const th = vm.runtime._pushThread(def.id,target);
-        th.stack[0] = Object.keys(target.blocks._blocks)[0];
         hookp(th,"popStack",{
             apply(f, self, args) {
                 delete self.popStack;
