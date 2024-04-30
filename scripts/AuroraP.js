@@ -2,6 +2,7 @@
 // Supports the other versions too
 
 (()=>{
+    const motionx = getglobals().find(v=>v.includes("MotionX")), motiony = getglobals().find(v=>v.includes("MotionY"));
     const sprite = getsprite("Sprite1");
     restore(vm.runtime._primitives,"procedures_call");
     hookp(vm.runtime._primitives,"procedures_call",{
@@ -17,11 +18,11 @@
     window.inter = setInterval(()=>{
         const w=vm.runtime.ioDevices.keyboard._keysPressed.includes("W"),s=vm.runtime.ioDevices.keyboard._keysPressed.includes("S");
         if (w||s){
-            setglobal(prefix+"MotionY",w*10-s*10);
+            setglobal(motiony,w*10-s*10);
         }
         const a=vm.runtime.ioDevices.keyboard._keysPressed.includes("A"),d=vm.runtime.ioDevices.keyboard._keysPressed.includes("D");
         if (a||d){
-            setglobal(prefix+"MotionX",d*15-a*15);
+            setglobal(motionx,d*15-a*15);
         }
     })
 })();
