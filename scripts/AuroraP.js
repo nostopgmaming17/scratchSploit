@@ -8,7 +8,7 @@
     restore(vm.runtime._primitives,"procedures_call");
     hookp(vm.runtime._primitives,"procedures_call",{
         apply(f, th, args){
-            if (args[0].mutation.proccode.startsWith(prefix+"Event.Check.Flagged")) {
+            if (args[0].mutation.proccode.startsWith(prefix+"Event")) {
                 return;
             }
             return Reflect.apply(f, th, args);
