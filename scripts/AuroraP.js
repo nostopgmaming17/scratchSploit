@@ -2,13 +2,11 @@
 // Supports the other versions too
 
 (()=>{
-    const isnewver = true;
-    const prefix = isnewver?"\u2800":"";
     const sprite = getsprite("Sprite1");
     restore(vm.runtime._primitives,"procedures_call");
     hookp(vm.runtime._primitives,"procedures_call",{
         apply(f, th, args){
-            if (args[0].mutation.proccode.startsWith(prefix+"Event")) {
+            if (args[0].mutation.proccode.includes("Event")) {
                 return;
             }
             return Reflect.apply(f, th, args);
