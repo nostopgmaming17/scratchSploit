@@ -9,7 +9,7 @@
     const controller = patternscan(plr,["procedures_definition","event_broadcast","data_setvariableto","input.value","argument_reporter_string_number",0,"input.custom_block","="])[0][4].mutation.proccode;
     const yv = patternscan(plr,["motion_changeyby","input.dy","data_variable"])[0][1].fields.VARIABLE.value;
     const touching = patternscan(plr,["control_forever","input.substack","control_if","input.condition","operator_and","input.operand2","operator_equals","input.operand1","data_variable"])[0][4].fields.VARIABLE.value;
-
+    const airtime = patternscan(ac,["control_if","input.condition","operator_gt","input.operand1","data_variable",0,"input.substack","procedures_call"])[0][2].fields.VARIABLE.value;
     const config = {
         fly: false
     };
@@ -74,6 +74,7 @@
         plr.X += d*15 - a*15;
         setglobal(yv,w*10 - s*10 + 1);
         setglobal(touching,0);
+        setglobal(airtime,0);
     });
     vm.runtime.targets.forEach(v=>v.blocks.resetCache());
 })();
