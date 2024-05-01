@@ -7,6 +7,7 @@
     const suspicion = patternscan(ac,["control_if","input.condition","operator_gt",0,"input.substack","procedures_call"])[0][2].mutation.proccode;
     const flag = patternscan(ac,["control_if","input.condition","operator_equals","input.operand1","sensing_of",0,"input.substack","procedures_call"])[0][3].mutation.proccode;
     const controller = patternscan(plr,["procedures_definition","event_broadcast","data_setvariableto","input.value","argument_reporter_string_number",0,"input.custom_block","="])[0][4].mutation.proccode;
+    const xv = patternscan(vm.runtime.targets[1],["motion_changexby","input.dx","data_variable"])[0][1].fields.VARIABLE.value;
     const yv = patternscan(plr,["motion_changeyby","input.dy","data_variable"])[0][1].fields.VARIABLE.value;
     const touching = patternscan(plr,["control_forever","input.substack","control_if","input.condition","operator_and","input.operand2","operator_equals","input.operand1","data_variable"])[0][4].fields.VARIABLE.value;
     const airtime = patternscan(ac,["control_if","input.condition","operator_gt","input.operand1","data_variable",0,"input.substack","procedures_call"])[0][2].fields.VARIABLE.value;
@@ -31,7 +32,7 @@
                     if (config.fly)
                         return;
                     const cargs = JSON.parse(args[0].mutation.argumentids);
-                    args[0][cargs[0]] = 10;
+                    args[0][cargs[0]] = 16;
                     args[0][cargs[1]] = 32;
                 }
             }
@@ -66,13 +67,13 @@
     let pressed = false;
     window.inter = setInterval(()=>{
         if (pressed&&(pressed=vm.runtime.ioDevices.keyboard._keysPressed.includes("F")),!pressed&&(pressed=vm.runtime.ioDevices.keyboard._keysPressed.includes("F"))) {
-            config.flying = !config.flying;
+            config.fly = !config.fly;
         }
         
-        if (!config.flying) return;
+        if (!config.fly) return;
         let w=vm.runtime.ioDevices.keyboard._keysPressed.includes("W"),a=vm.runtime.ioDevices.keyboard._keysPressed.includes("A"),s=vm.runtime.ioDevices.keyboard._keysPressed.includes("S"),d=vm.runtime.ioDevices.keyboard._keysPressed.includes("D");
-        plr.X += d*15 - a*15;
-        setglobal(yv,w*10 - s*10 + 1);
+        setglobal(xv,d*15 - a*15);
+        setglobal(yv,w*15 - s*15 + 1);
         setglobal(touching,0);
         setglobal(airtime,0);
     });
