@@ -3,14 +3,15 @@
 (()=>{
     const LOG = false;
 
-    const plr = vm.runtime.targets[1], ac = vm.runtime.targets[3];
+    const plr = vm.runtime.targets[2], ac = vm.runtime.targets[1];
     const suspicion = patternscan(ac,["control_if","input.condition","operator_gt",0,"input.substack","procedures_call"])[0][2].mutation.proccode;
-    const flag = patternscan(ac,["control_if","input.condition","operator_equals","input.operand1","sensing_of",0,"input.substack","procedures_call"])[0][3].mutation.proccode;
+    const flag = patternscan(ac,["control_if","input.condition","operator_gt",0,"input.substack","procedures_call"])[2][2].mutation.proccode;
     const controller = patternscan(plr,["procedures_definition","event_broadcast","data_setvariableto","input.value","argument_reporter_string_number",0,"input.custom_block","="])[0][4].mutation.proccode;
-    const xv = patternscan(vm.runtime.targets[1],["motion_changexby","input.dx","data_variable"])[0][1].fields.VARIABLE.value;
+    const xv = patternscan(plr,["motion_changexby","input.dx","data_variable"])[0][1].fields.VARIABLE.value;
     const yv = patternscan(plr,["motion_changeyby","input.dy","data_variable"])[0][1].fields.VARIABLE.value;
     const touching = patternscan(plr,["control_forever","input.substack","control_if","input.condition","operator_and","input.operand2","operator_equals","input.operand1","data_variable"])[0][4].fields.VARIABLE.value;
     const airtime = patternscan(ac,["control_if","input.condition","operator_gt","input.operand1","data_variable",0,"input.substack","procedures_call"])[0][2].fields.VARIABLE.value;
+    const setback = patternscan(ac,["procedures_call","event_broadcast","input.broadcast_input","="])[0][2].fields.BROADCAST_OPTION.value;
     const config = {
         fly: false
     };
@@ -36,6 +37,14 @@
                     args[0][cargs[1]] = 32;
                 }
             }
+            return Reflect.apply(f, th, args);
+        }
+    });
+    restore(vm.runtime._primitives,"event_broadcast");
+    hookp(vm.runtime._primitives,"event_broadcast",{
+        apply(f, th, args) {
+            if (args[0].BROADCAST_OPTION.name == setback)
+                return;
             return Reflect.apply(f, th, args);
         }
     });
