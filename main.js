@@ -391,6 +391,15 @@
         getnative(vm.runtime._primitives.procedures_call)(o,thread);
         return th;
     };
+    window.getparam = function(th, name) {
+        return th.getParam(name);
+    };
+    window.setparam = function setparam(th, name, value) {
+        for(let i=th.stackFrames.length-1;i>=0;i--) {
+            if (th.stackFrames[i].params != null)
+                return th.stackFrames[i].params[name] != null ? (th.stackFrames[i].params[name] = value,true) : false;
+        }
+    };
     (()=>{
         const i = setInterval(()=>{
             try{
