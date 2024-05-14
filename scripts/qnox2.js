@@ -2,7 +2,14 @@
 
 (()=>{
     const pattern = patternscan(getsprite("AntiCheat")||vm.runtime.targets[2],["=","input.string2","=","input.string1","=",1,"input.string2","=","input.string2","="]);
-    const lock = patternscan(getsprite("AntiCheat")||vm.runtime.targets[2],["event_broadcast","input.broadcast_input","=",0,"*","control_stop"])[0][1].fields.BROADCAST_OPTION.value;
+    const lock = (()=>{
+        const a = patternscan(getsprite("AntiCheat")||vm.runtime.targets[2],["event_broadcast","input.broadcast_input","=",0,"*","control_stop"]);
+        if (a.length > 0)
+            return a[0][1].fields.BROADCAST_OPTION.value;
+        const b = patternscan(getsprite("AntiCheat")||vm.runtime.targets[2],["event_whenbroadcastreceived","*","control_stop"]);
+        if (b.length > 0)
+            return b[0][0].fields.BROADCAST_OPTION.value;
+    })();
     const clicks = varbyid(pattern[0][4].fields.VARIABLE.id);
     const cps = varbyid(pattern[0][2].fields.VARIABLE.id);
     restore(vm.runtime._primitives,"event_broadcast");
