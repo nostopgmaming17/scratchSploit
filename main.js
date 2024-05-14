@@ -132,9 +132,13 @@
         };
     };
     window.setglobal = function(n,v) {
-        for (let i in vm.runtime.targets[0].variables) {
-            if (vm.runtime.targets[0].variables[i].name == n) {
-                return vm.setVariableValue(vm.runtime.targets[0].id,i,v)
+        for (let id in vm.runtime.targets[0].variables) {
+            if (vm.runtime.targets[0].variables[id].name == n) {
+                const V = vm.runtime.targets[0].variables[id];
+                if (V.isCloud)
+                    vm.runtime.ioDevices.cloud.requestUpdateVariable(V.name,v);
+                V.value = v;
+                return true;
             }
         }
         return false
@@ -156,7 +160,7 @@
         };
         for (let id in spr.variables) {
             if (spr.variables[id].name == n) {
-                vm.setVariableValue(spr.id,id,v);
+                spr.variables[id].value = v;
                 return true;
             };
         };
