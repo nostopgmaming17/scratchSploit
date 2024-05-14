@@ -6,6 +6,7 @@
     const plr = vm.runtime.targets[2], ac = vm.runtime.targets[1];
     const suspicion = patternscan(ac,["control_if","input.condition","operator_gt",0,"input.substack","procedures_call"])[0][2].mutation.proccode;
     const flag = patternscan(ac,["control_if","input.condition","operator_gt",0,"input.substack","procedures_call"])[2][2].mutation.proccode;
+    // next: patternscan(vm.runtime.targets[1],["procedures_definition","data_addtolist",0,"input.custom_block","="])[0][2].mutation.proccode
     const controller = patternscan(plr,["procedures_definition","event_broadcast","data_setvariableto","input.value","argument_reporter_string_number",0,"input.custom_block","="])[0][4].mutation.proccode;
     const xv = patternscan(plr,["motion_changexby","input.dx","data_variable"])[0][1].fields.VARIABLE.value;
     const yv = patternscan(plr,["motion_changeyby","input.dy","data_variable"])[0][1].fields.VARIABLE.value;
