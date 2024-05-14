@@ -296,7 +296,9 @@
         input (ex: input.substack)
         goto (number of block it went over already)
         = (any opcode)
-        * (skip until it finds block after)
+        * (skips down until it finds the block specified in next opcode)
+        ^ (parent)
+        *^ (skips up until it finds the block specified in next opcode)
         none (no block)
     */
     window.patternscan = function(_sprite,opcodes) { // example for opcodes: ["control_if_else","input.condition","operator_gt","input.operand1","data_variable",0,"input.substack","control_if","input.substack","data_addtolist"]
@@ -309,7 +311,11 @@
             let match = true;
             const blockA = [];
             for (let i = 0; i < opcodes.length; i++) {
-                if (typeof(opcodes[i]) == "string" && !opcodes[i].toLowerCase().startsWith("input.") && opcodes[i] != "*" && opcodes[i] != "none") blockA.push(cblock);
+                if (typeof(opcodes[i]) == "string" && !opcodes[i].toLowerCase().startsWith("input.") && opcodes[i] != "*" && opcodes[i] != "*^" && opcodes[i] != "none") blockA.push(cblock);
+                if (opcodes[i] == "^") {
+                    cblock = blocks[cblock.parent];
+                    continue;
+                }
                 if (cblock == null) {
                     if (opcodes[i] != "none")
                         match = false;
@@ -317,21 +323,102 @@
                 }
                 if (opcodes[i] == "*") {
                     let found = false;
+                    let lastblock;
                     while(true) {
                         if (cblock == null) {
                             if (opcodes[i+1] == "none")
                                 found = true;
+                            cblock = lastblock;
                             break;
                         }
-                        if (typeof(opcodes[i+1]) == "string" && opcodes[i+1] != "=" && opcodes[i+1] != "none" && cblock.opcode == opcodes[i+1]) {
+                        if (opcodes[i+1] != "=" && opcodes[i+1] != "none" && cblock.opcode == opcodes[i+1]) {
                             found = true;
                             break;
                         }
+                        lastblock = cblock;
                         cblock = blocks[cblock.next];
                     }
                     if (found) {
                         blockA.push(cblock);
                         i++;
+                        if (typeof(opcodes[i+1]) == "string" && opcodes[i+1].toLowerCase().startsWith("input.")) {
+                            const inp = opcodes[i + 1].substr(6);
+                            if (cblock == null) {
+                                match = false;
+                                break;
+                            }
+                            if (cblock.inputs[inp.toUpperCase()] != null) {
+                                cblock = blocks[cblock.inputs[inp.toUpperCase()].block];
+                                i++;
+                                continue;
+                            } else if (cblock.inputs[inp.toLowerCase()] != null) {
+                                cblock = blocks[cblock.inputs[inp.toLowerCase()].block];
+                                i++;
+                                continue;
+                            } else if (cblock.inputs[inp] != null) {
+                                cblock = blocks[cblock.inputs[inp].block];
+                                i++;
+                                continue;
+                            }
+                            match = false;
+                            break;
+                        } else if (opcodes[i+1] == "^") {
+                            i++;
+                            cblock = blocks[cblock.parent];
+                        } else if (opcodes[i+1] != "*" && opcodes[i+1] != "*^")
+                            cblock = blocks[cblock.next];
+                        continue;
+                    } else {
+                        match = false;
+                        break;
+                    }
+                } else if (opcodes[i] == "*^") {
+                    let found = false;
+                    let lastblock;
+                    while(true) {
+                        if (cblock == null) {
+                            if (opcodes[i+1] == "none")
+                                found = true;
+                            cblock = lastblock;
+                            break;
+                        }
+                        if (opcodes[i+1] != "=" && opcodes[i+1] != "none" && cblock.opcode == opcodes[i+1]) {
+                            found = true;
+                            break;
+                        }
+                        lastblock = cblock;
+                        cblock = blocks[cblock.parent];
+                    }
+                    if (found) {
+                        blockA.push(cblock);
+                        i++;
+                        if (typeof(opcodes[i+1]) == "string" && opcodes[i+1].toLowerCase().startsWith("input.")) {
+                            const inp = opcodes[i + 1].substr(6);
+                            if (cblock == null) {
+                                match = false;
+                                break;
+                            }
+                            if (cblock.inputs[inp.toUpperCase()] != null) {
+                                cblock = blocks[cblock.inputs[inp.toUpperCase()].block];
+                                i++;
+                                continue;
+                            } else if (cblock.inputs[inp.toLowerCase()] != null) {
+                                cblock = blocks[cblock.inputs[inp.toLowerCase()].block];
+                                i++;
+                                continue;
+                            } else if (cblock.inputs[inp] != null) {
+                                cblock = blocks[cblock.inputs[inp].block];
+                                i++;
+                                continue;
+                            }
+                            match = false;
+                            break;
+                        } else if (opcodes[i+1] == "^") {
+                            i++;
+                            cblock = blocks[cblock.parent];
+                        } else if (opcodes[i+1] != "*" && opcodes[i+1] != "*^")
+                            cblock = blocks[cblock.next];
+                        continue;
                     } else {
                         match = false;
                         break;
@@ -368,7 +455,8 @@
                     cblock = blockA[opcodes[i + 1]];
                     continue;
                 }
-                cblock = blocks[cblock.next];
+                if (opcodes[i+1] != "*" && opcodes[i+1] != "*^")
+                    cblock = blocks[cblock.next];
             }
             if (match)
                 ret.push(blockA);
