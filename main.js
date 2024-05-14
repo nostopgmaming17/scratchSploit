@@ -296,6 +296,8 @@
         input (ex: input.substack)
         goto (number of block it went over already)
         = (any opcode)
+        * (skip until it finds block after)
+        none (no block)
     */
     window.patternscan = function(_sprite,opcodes) { // example for opcodes: ["control_if_else","input.condition","operator_gt","input.operand1","data_variable",0,"input.substack","control_if","input.substack","data_addtolist"]
         const sprite = typeof(_sprite)=="object"?_sprite:getsprite(_sprite);
@@ -307,10 +309,33 @@
             let match = true;
             const blockA = [];
             for (let i = 0; i < opcodes.length; i++) {
-                if (typeof(opcodes[i]) == "string" && !opcodes[i].toLowerCase().startsWith("input.")) blockA.push(cblock);
+                if (typeof(opcodes[i]) == "string" && !opcodes[i].toLowerCase().startsWith("input.") && opcodes[i] != "*" && opcodes[i] != "none") blockA.push(cblock);
                 if (cblock == null) {
-                    match = false;
+                    if (opcodes[i] != "none")
+                        match = false;
                     break;
+                }
+                if (opcodes[i] == "*") {
+                    let found = false;
+                    while(true) {
+                        if (cblock == null) {
+                            if (opcodes[i+1] == "none")
+                                found = true;
+                            break;
+                        }
+                        if (typeof(opcodes[i+1]) == "string" && opcodes[i+1] != "=" && opcodes[i+1] != "none" && cblock.opcode == opcodes[i+1]) {
+                            found = true;
+                            break;
+                        }
+                        cblock = blocks[cblock.next];
+                    }
+                    if (found) {
+                        blockA.push(cblock);
+                        i++;
+                    } else {
+                        match = false;
+                        break;
+                    }
                 }
                 if (typeof(opcodes[i]) == "string" && opcodes[i] != "=" && cblock.opcode != opcodes[i]) {
                     match = false;
