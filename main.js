@@ -572,4 +572,43 @@
             }catch(e){}
         },100);
     })();
+    const spritefile = document.createElement("input");
+    spritefile.type = "file";
+    const jsfile = document.createElement("input");
+    jsfile.type = "file";
+    document.addEventListener("ScratchSploitMessage",e=>{
+        const req = e.detail;
+        console.log(req);
+        switch(req.type) {
+            case "spoofUser":
+                vm.runtime.ioDevices.userData._username = req.value;
+                break;
+            case "injectSprite":
+                spritefile.onchange = function(e){
+                    const stream = e.target.files[0].stream();
+                    const reader = stream.getReader();
+                    reader.read().then(v=>{
+                        vm.addSprite(v.value);
+                        reader.releaseLock();
+                    }).catch(e=>{
+                        reader.releaseLock();
+                    });
+                }
+                spritefile.click();
+                break;
+            case "injectJS":
+                jsfile.onchange = function(e){
+                    const stream = e.target.files[0].stream();
+                    const reader = stream.getReader();
+                    reader.read().then(v=>{
+                        eval(String.fromCharCode(...Array.from(v.value)));
+                        reader.releaseLock();
+                    }).catch(e=>{
+                        reader.releaseLock();
+                    });
+                }
+                jsfile.click();
+                break;
+        }
+    })
 })();

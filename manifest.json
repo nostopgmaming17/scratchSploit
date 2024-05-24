@@ -8,12 +8,21 @@
             "run_at":"document_start",
             "js": ["main.js"],
             "world": "MAIN"
+        },
+        {
+            "matches": ["*://scratch.mit.edu/*"],
+            "run_at":"document_start",
+            "js": ["communication.js"]
         }
     ],
     "permissions": [
-        "activeTab"
+        "activeTab",
+        "tabs"
     ],
     "host_permissions": [
         "*://scratch.mit.edu/*"
-    ]
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    }
 }

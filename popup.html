@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <script src="popup.js" defer></script>
+        <style>
+            html {
+                width: 315;
+                height: 175;
+            }
+            * {
+                background-color: dimgray;
+                color: black;
+                font-weight: bold;
+            }
+            button, input {
+                transition: all 0.25s ease;
+                background-color: lightgray;
+                margin-right: 5px;
+                border-radius: 0.25rem;
+            }
+            button:hover, input:hover {
+                transition: all 0.25s ease;
+                background-color: white;
+            }
+            ::placeholder {
+                color: black;
+            }
+            h1 {
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>ScratchSploit Menu</h1>
+        <input id="username" placeholder="username here"><button id="setusername">Set username</button>
+        <br>
+        <br>
+        <button id="spriteinject">Inject Sprite</button>
+        <br>
+        <br>
+        <button id="jsinject">Inject JS</button>
+    </body>
+</html>
