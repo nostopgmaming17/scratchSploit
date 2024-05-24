@@ -578,7 +578,6 @@
     jsfile.type = "file";
     document.addEventListener("ScratchSploitMessage",e=>{
         const req = e.detail;
-        console.log(req);
         switch(req.type) {
             case "spoofUser":
                 vm.runtime.ioDevices.userData._username = req.value;
