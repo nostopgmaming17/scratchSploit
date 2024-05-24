@@ -41,6 +41,8 @@ r - Kick player.
 ## Griffpatch's Taco Burp:
 f - Taco BOOM.
 
+
+# Other:
 That's all for now:) Have fun ruining other people's fun!
 
 
