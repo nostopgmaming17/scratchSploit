@@ -45,6 +45,33 @@
     window.hookp = hookp;
     window.restore = restore;
     window.getnative = getnative;
+    function oninject() {
+        const cloud = vm.runtime.ioDevices.cloud;
+        let inter = setInterval(()=>{
+            if (cloud.provider == null) return;
+            clearInterval(inter);
+            const provider = cloud.provider;
+            provider.clear = ()=>{};
+            provider.requestCloseConnection = ()=>{};
+            provider.clear = ()=>{};
+            reflect.defineProperty(cloud,"provider",{
+                value: provider,
+                writable: false
+            });
+        });
+        if (location.pathname.split("/").includes("editor")) {
+            let inter2 = setInterval(()=>{
+                if (vm.runtime.ioDevices.userData._username == "") return;
+                clearInterval(inter2);
+                let split = location.pathname.split("/")
+                let projectid = split[split.indexOf("projects")+1];
+                let provider = new providerconstructor("clouddata.scratch.mit.edu", vm, vm.runtime.ioDevices.userData._username, projectid);
+                vm.runtime.ioDevices.cloud.provider = provider;
+                provider.openConnection();
+
+            });
+        }
+    }
     hookp(Function.prototype,"bind",{
         apply(f, th, args) {
             try{
@@ -53,6 +80,7 @@
                     vm = args[0];
                     window.vm = vm;
                     Function.prototype.bind = f;
+                    oninject();
                 }
             }catch(e){}
             return reflect.apply(f, th, args);
@@ -63,6 +91,7 @@
         console.log("%cSuccessfully logged VM & Have fun trolling and shit (Unpack extension to auto-inject)", "color: #ff4d36; font-size:200%");
         restore(Function.prototype,"bind");
         window.vm = vm;
+        oninject();
     }
     hookp(Function.prototype,"toString", {
         apply(f, th, args) {
@@ -100,7 +129,19 @@
                 }
                 return m.set(this, v);
             }
-        })
+        });
+        if (location.pathname.split("/").includes("editor")) {
+            hookp(Object,"defineProperty",{
+                apply(f, th, args) {
+                    try{
+                        if (args[1] == "prototype" && args[2].writable === false && args[0].prototype._sendCloudData != null) {
+                            window.providerconstructor = args[0];
+                        }
+                    }catch(e){}
+                    return Reflect.apply(f, th, args);
+                }
+            })
+        }
     })();
     window.sleep = async ms => {
         return new Promise(resolve => setTimeout(resolve,ms));
