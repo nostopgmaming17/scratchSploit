@@ -1,5 +1,5 @@
-# scratchSploit
-scratchSploit is a powerful tool to hack scratch games! Use this tool on your **OWN RISK**! Because you might get banned by scratch!
+# ScratchSploit
+ScratchSploit is a powerful tool to hack scratch games! Use this tool on your **OWN RISK**! Because you might get banned by scratch!
 Scripts in [scripts](https://github.com/nostopgmaming17/scratchSploit/tree/main/scripts) folder work only with the extension installed, here is a quick guide on installing the extension.
 
 # Installing extension:
