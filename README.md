@@ -6,7 +6,7 @@ Scripts in [scripts](https://github.com/nostopgmaming17/scratchSploit/tree/main/
 1. Download this repo in zip.
 2. Unpack the zip into one folder.
 3. Go to chrome://extensions and enable Developer mode.
-4. load the folder as an unpacked extension.
+4. Load the folder as an unpacked extension.
 
 # How to use scripts:
 1. Press Ctrl + Shift + I .
