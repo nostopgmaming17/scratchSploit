@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Scratch sploit",
-    "version": "2.1",
+    "version": "2.2",
     "content_scripts": [
         {
             "matches": ["*://scratch.mit.edu/*"],
