@@ -1,5 +1,5 @@
 # ScratchSploit
-ScratchSploit is a powerful tool to hack scratch games! Use this tool on your **OWN RISK**! Because you might get banned by scratch!
+ScratchSploit is a powerful tool to hack scratch games! Use this tool on your **OWN RISK**! Because you might get banned by scratch! (although very unlikely)
 Scripts in [scripts](https://github.com/nostopgmaming17/scratchSploit/tree/main/scripts) folder work only with the extension installed, here is a quick guide on installing the extension.
 
 # Installing extension:
@@ -9,10 +9,10 @@ Scripts in [scripts](https://github.com/nostopgmaming17/scratchSploit/tree/main/
 4. Load the folder as an unpacked extension.
 
 # How to use scripts:
-1. Press Ctrl + Shift + I .
+1. Press Ctrl + Shift + I or F12.
 2. Press on "Console".
 3. Paste in your code.
-4. If you did all right then the console will return "undefined".
+4. If you did all right then it should work.
 
 # Script controls:
 
@@ -22,7 +22,7 @@ t - Turn alive.
 y - Die.
 
 ## Griffpatch's Bomberman:
-f - Toggle fly.
+f - Toggle noclip.
 q - Win.
 
 ## Griffpatch's MMO Minecraft:
