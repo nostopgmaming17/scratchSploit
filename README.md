@@ -13,14 +13,14 @@ Scripts in [scripts](https://github.com/nostopgmaming17/scratchSploit/tree/main/
 ## Renderer:
 [Global] 'renderer'
 {
-  canvas -> canvas used to render over scratch
-  defaultWidth -> default canvas width
-  defaultHeight -> default canvas height
-  canvasWidth -> current canvas width
-  canvasHeight -> current canvas height
-  addDrawCallback(callback : function) : returns the id of the callback -> adds the given callback to be called every frame
-  removeDrawCallback(id : number) : returns nothing                     -> removes the callback with the given id from the callback list
-  frame -> the current frame number (+1 every frame)
+  canvas -> canvas used to render over scratch  
+  defaultWidth -> default canvas width  
+  defaultHeight -> default canvas height  
+  canvasWidth -> current canvas width  
+  canvasHeight -> current canvas height  
+  addDrawCallback(callback : function) : returns the id of the callback -> adds the given callback to be called every frame  
+  removeDrawCallback(id : number) : returns nothing                     -> removes the callback with the given id from the callback list  
+  frame -> the current frame number (+1 every frame)  
 }
 
 # How to use scripts:
