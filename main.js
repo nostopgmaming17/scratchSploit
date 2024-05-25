@@ -23,10 +23,6 @@
         createCanvas()
     }
     
-    function randomNumber(min, max) {
-        return Math.random() * (max - min) + min
-    }
-    
     var canvasWidth = 720
     var canvasHeight = 540
     
@@ -63,12 +59,25 @@
         delete drawCallbacks[id]
     }
 
+        window.renderer = {
+            canvas: canvas,
+            defaultWidth: defaultWidth,
+            defaultHeight: defaultHeight,
+            canvasWidth: canvasWidth,
+            canvasHeight: canvasHeight,
+            addDrawCallback: addDrawCallback,
+            removeDrawCallback: removeDrawCallback,
+            frame: frame,
+            scratchToScreenPosition: scratchToScreenPosition
+        }
+    
     var frame = 0
     function drawLoop() {
         if (!canvas) {
             oldCanvas = document.getElementsByTagName("canvas")[0]
             if (oldCanvas) {
                 createCanvas()
+                window.renderer.canvas = canvas
             } else {
                 window.requestAnimationFrame(drawLoop)
                 return
@@ -82,6 +91,10 @@
     
         canvasWidth = canvas.width
         canvasHeight = canvas.height
+
+        window.renderer.canvasWidth = canvasWidth
+        window.renderer.canvasHeight = canvasHeight
+        window.renderer.frame = frame
     
         xdiv = 480 / canvasWidth
         ydiv = 360 / canvasHeight
@@ -91,17 +104,6 @@
         }
     
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-        window.renderer = {
-            canvas: canvas,
-            defaultWidth: defaultWidth,
-            defaultHeight: defaultHeight,
-            canvasWidth: canvasWidth,
-            canvasHeight: canvasHeight,
-            addDrawCallback: addDrawCallback,
-            removeDrawCallback: removeDrawCallback,
-            frame: frame
-        }
         
         frame++
         Object.keys(drawCallbacks).forEach(function(id) {
