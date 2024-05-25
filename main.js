@@ -59,6 +59,14 @@
                 writable: false
             });
         });
+        (()=>{
+            const CLOSE = ()=>{};
+            setInterval(()=>{
+                try{
+                    vm.runtime.ioDevices.cloud.provider.connection.close != CLOSE && (vm.runtime.ioDevices.cloud.provider.connection.close = CLOSE);
+                }catch(e){}
+            });
+        })();
         if (location.pathname.split("/").includes("editor")) {
             let _events = vm.runtime._events;
             let projectloaded = _events.PROJECT_LOADED
