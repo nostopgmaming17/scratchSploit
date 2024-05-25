@@ -187,7 +187,7 @@
             }
     
             return originalFunction.call(this, ...args)
-        }
+        })
     
         vm.runtime.targets.forEach(function(target) {
             target.blocks.resetCache()
