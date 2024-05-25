@@ -22,6 +22,7 @@ window.renderer:
   removeDrawCallback(id : number) : returns nothing                     -> removes the callback with the given id from the callback list  
   frame -> the current frame number (+1 every frame)  
   scratchToScreenPosition -> converts a position in scratch to a position inside the canvas  
+  ctx -> the return value of canvas.getContext("2d")  
 
 
 # How to use scripts:
