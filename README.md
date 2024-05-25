@@ -27,7 +27,7 @@ q - Win.
 
 ## Griffpatch's MMO Minecraft:
 g - Toggle superspeed.
-h - Toggle fly.
+h - Toggle noclip-fly.
 
 ## Griffpatch's MMO Platformer:
 Mouse click - Fly.
