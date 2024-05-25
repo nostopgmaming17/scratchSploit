@@ -56,17 +56,17 @@
         delete drawCallbacks[id]
     }
 
-        window.renderer = {
-            canvas: canvas,
-            defaultWidth: defaultWidth,
-            defaultHeight: defaultHeight,
-            canvasWidth: canvasWidth,
-            canvasHeight: canvasHeight,
-            addDrawCallback: addDrawCallback,
-            removeDrawCallback: removeDrawCallback,
-            frame: frame,
-            scratchToScreenPosition: scratchToScreenPosition
-        }
+    window.renderer = {
+        canvas: canvas,
+        defaultWidth: defaultWidth,
+        defaultHeight: defaultHeight,
+        canvasWidth: canvasWidth,
+        canvasHeight: canvasHeight,
+        addDrawCallback: addDrawCallback,
+        removeDrawCallback: removeDrawCallback,
+        frame: frame,
+        scratchToScreenPosition: scratchToScreenPosition
+    }
     
     var frame = 0
     function drawLoop() {
