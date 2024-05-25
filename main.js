@@ -36,9 +36,6 @@
         return [(x + 240) / xdiv, (-y + 180) / ydiv]
     }
     
-    const clamp = (number, min, max) =>
-       Math.max(min, Math.min(number, max));
-    
     var drawCallbacks = []
     var callbackCounter = 0
 
