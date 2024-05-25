@@ -714,8 +714,8 @@
                     const stream = e.target.files[0].stream();
                     const reader = stream.getReader();
                     reader.read().then(v=>{
-                        vm.addSprite(v.value);
                         reader.releaseLock();
+                        vm.addSprite(v.value);
                     }).catch(e=>{
                         reader.releaseLock();
                     });
@@ -727,8 +727,8 @@
                     const stream = e.target.files[0].stream();
                     const reader = stream.getReader();
                     reader.read().then(v=>{
-                        eval(String.fromCharCode(...Array.from(v.value)));
                         reader.releaseLock();
+                        eval(String.fromCharCode(...Array.from(v.value)));
                     }).catch(e=>{
                         reader.releaseLock();
                     });
