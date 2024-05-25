@@ -29,7 +29,14 @@
             }catch(e){}
             return Reflect.apply(f, th, args);
         }
-    })
+    });
+    restore(vm.runtime._primitives,"sensing_username");
+    hookp(vm.runtime._primitives,"sensing_username",{
+        apply(f, th, args) {
+            let ret = Reflect.apply(f, th, args);
+            return ret + "griffpatch"; // bypasses anticheat (yes it actually exists and is running on other players devices)
+        }
+    });
     vm.runtime.targets.forEach(v=>v.blocks.resetCache());
     let pressed1 = false, pressed2 = false;
     setInterval(()=>{
@@ -46,7 +53,7 @@
         if (vm.runtime.ioDevices.keyboard._keysPressed.includes("W")) {
             setlocal("Player","speed y",15);
         }
-        setglobal("BREAKING",Math.max(getglobal("BREAKING"),8));
+        setglobal("BREAKING",Math.max(getglobal("BREAKING"),100));
         inv[0]=117;
         invC[0]=1;
         window.inv = inv;
