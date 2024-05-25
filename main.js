@@ -18,10 +18,6 @@
         
         ctx = canvas.getContext("2d")
     }
-
-    if (oldCanvas) {
-        createCanvas()
-    }
     
     var canvasWidth = 720
     var canvasHeight = 540
@@ -65,7 +61,8 @@
         addDrawCallback: addDrawCallback,
         removeDrawCallback: removeDrawCallback,
         frame: frame,
-        scratchToScreenPosition: scratchToScreenPosition
+        scratchToScreenPosition: scratchToScreenPosition,
+        ctx: null
     }
     
     var frame = 0
@@ -75,6 +72,7 @@
             if (oldCanvas) {
                 createCanvas()
                 window.renderer.canvas = canvas
+                window.renderer.ctx = canvas.getContext("2d")
             } else {
                 window.requestAnimationFrame(drawLoop)
                 return
