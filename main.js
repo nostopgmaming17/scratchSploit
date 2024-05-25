@@ -60,15 +60,20 @@
             });
         });
         if (location.pathname.split("/").includes("editor")) {
-            let inter2 = setInterval(()=>{
-                if (vm.runtime.ioDevices.userData._username == "") return;
-                clearInterval(inter2);
-                let split = location.pathname.split("/")
-                let projectid = split[split.indexOf("projects")+1];
-                let provider = new providerconstructor("clouddata.scratch.mit.edu", vm, vm.runtime.ioDevices.userData._username, projectid);
-                vm.runtime.ioDevices.cloud.provider = provider;
-                provider.openConnection();
-
+            let _events = vm.runtime._events;
+            let projectloaded = _events.PROJECT_LOADED
+            if (projectloaded == null)
+                projectloaded = _events.PROJECT_LOADED = [];
+            projectloaded.push(()=>{
+                try{
+                    if (vm.runtime.ioDevices.userData._username == "") return;
+                    let split = location.pathname.split("/")
+                    let projectid = split[split.indexOf("projects")+1];
+                    let provider = new providerconstructor("clouddata.scratch.mit.edu", vm, vm.runtime.ioDevices.userData._username, projectid);
+                    vm.runtime.ioDevices.cloud.setProvider(provider);
+                }catch(e){
+                    console.warn(e);
+                }
             });
         }
     }

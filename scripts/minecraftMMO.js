@@ -46,9 +46,9 @@
         if (vm.runtime.ioDevices.keyboard._keysPressed.includes("W")) {
             setlocal("Player","speed y",15);
         }
-        setglobal("BREAKING",8);
+        setglobal("BREAKING",Math.max(getglobal("BREAKING"),8));
         inv[0]=117;
-        invC[0]=69;
+        invC[0]=1;
         window.inv = inv;
         window.invC = invC;
     },10)
