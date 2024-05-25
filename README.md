@@ -8,6 +8,22 @@ Scripts in [scripts](https://github.com/nostopgmaming17/scratchSploit/tree/main/
 3. Go to chrome://extensions and enable Developer mode.
 4. Load the folder as an unpacked extension.
 
+# Developer Documentation:
+
+## Renderer:
+window.renderer:
+
+  canvas -> canvas used to render over scratch  
+  defaultWidth -> default canvas width  
+  defaultHeight -> default canvas height  
+  canvasWidth -> current canvas width  
+  canvasHeight -> current canvas height  
+  addDrawCallback(callback : function) : returns the id of the callback -> adds the given callback to the callback list which is then called every frame | callbacks are called in the order they are in in the callback list
+  removeDrawCallback(id : number) : returns nothing                     -> removes the callback with the given id from the callback list  
+  frame -> the current frame number (+1 every frame)  
+  scratchToScreenPosition -> converts a position in scratch to a position inside the canvas  
+
+
 # How to use scripts:
 1. Press Ctrl + Shift + I or F12.
 2. Press on "Console".
