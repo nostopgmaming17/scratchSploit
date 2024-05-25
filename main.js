@@ -1,6 +1,121 @@
 (function() {
     "use strict";
     console.log("Loaded");
+    // renderer start
+    // fully external esp by Eyoko1
+    var oldCanvas = document.getElementsByTagName("canvas")[0]
+    var canvas
+    var ctx
+    
+    function createCanvas() {
+        canvas = oldCanvas.cloneNode(false)
+        oldCanvas.parentElement.appendChild(canvas)
+        
+        canvas.style.position = "absolute"
+        canvas.style.top = "0px"
+        canvas.style.left = "0px"
+        canvas.style.pointerEvents = "none"
+        
+        ctx = canvas.getContext("2d")
+    }
+
+    if (oldCanvas) {
+        createCanvas()
+    }
+    
+    function randomNumber(min, max) {
+        return Math.random() * (max - min) + min
+    }
+    
+    var canvasWidth = 720
+    var canvasHeight = 540
+    
+    var defaultWidth = canvasWidth
+    var defaultHeight = canvasHeight
+    
+    var xdiv = 480 / canvasWidth
+    var ydiv = 360 / canvasHeight
+    
+    function scratchToScreenPosition(x, y) {
+        return [(x + 240) / xdiv, (-y + 180) / ydiv]
+    }
+    
+    const clamp = (number, min, max) =>
+       Math.max(min, Math.min(number, max));
+    
+    var drawCallbacks = []
+    var callbackCounter = 0
+
+    // example callback:
+    /*
+    function() {
+        console.log("current frame:", renderer.frame)
+    }
+    */
+    function addDrawCallback(callback) { // returns the id of the callback to be used in removeDrawCallback
+        callbackCounter++
+        
+        drawCallbacks[callbackCounter] = callback
+        return callbackCounter
+    }
+
+    function removeDrawCallback(id) {
+        delete drawCallbacks[id]
+    }
+
+    var frame = 0
+    function drawLoop() {
+        if (!canvas) {
+            oldCanvas = document.getElementsByTagName("canvas")[0]
+            if (oldCanvas) {
+                createCanvas()
+            } else {
+                window.requestAnimationFrame(drawLoop)
+                return
+            }
+        }
+        
+        canvas.style.width = oldCanvas.style.width
+        canvas.style.height = oldCanvas.style.height
+        canvas.width = oldCanvas.width
+        canvas.height = oldCanvas.height
+    
+        canvasWidth = canvas.width
+        canvasHeight = canvas.height
+    
+        xdiv = 480 / canvasWidth
+        ydiv = 360 / canvasHeight
+    
+        if (!canvas.checkVisibility()) {
+            oldCanvas.parentElement.appendChild(canvas)
+        }
+    
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+        window.renderer = {
+            canvas: canvas,
+            defaultWidth: defaultWidth,
+            defaultHeight: defaultHeight,
+            canvasWidth: canvasWidth,
+            canvasHeight: canvasHeight,
+            addDrawCallback: addDrawCallback,
+            removeDrawCallback: removeDrawCallback,
+            frame: frame
+        }
+        
+        frame++
+        Object.keys(drawCallbacks).forEach(function(id) {
+            var callback = drawCallbacks[id]
+            callback(frame)
+        })
+        
+        window.requestAnimationFrame(drawLoop)
+    }
+    
+    drawLoop()
+    
+    // renderer end
+    
     const proxy = Proxy;
     const reflect = {};
     for(let k of Object.getOwnPropertyNames(Reflect)) {
