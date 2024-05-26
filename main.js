@@ -2,7 +2,6 @@
     "use strict";
     console.log("Loaded");
     // renderer start
-    // fully external esp by Eyoko1
     var oldCanvas = document.getElementsByTagName("canvas")[0]
     var canvas
     var ctx
