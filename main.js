@@ -145,7 +145,7 @@
         vm.runtime.targets.forEach(v=>v.blocks.resetCache());
     }
     const restoreop = function (op) {
-        let r = restore(vm.runtime._primitives[op]);
+        let r = restore(vm.runtime._primitives, op);
         vm.runtime.targets.forEach(v=>v.blocks.resetCache());
         return r;
     }
