@@ -24,6 +24,53 @@ window.renderer:
   scratchToScreenPosition -> converts a position in scratch to a position inside the canvas  
   ctx -> the return value of canvas.getContext("2d")  
 
+-----
+
+# hook
+
+## Arguments
+(
+  Object Container, | Example: vm.runtime._primitives
+  Object Name,       | Example: "operator_lt"
+  Hook Function      | Example: See below
+)
+
+## Return Value
+null
+
+## Hook Function Example
+function(old) {
+    return function(data, sequencer) {
+        return old.apply(data, sequencer)
+    }
+}
+
+-----
+
+# hookp
+
+## Arguments
+(
+    Object Container, | Example: vm.runtime._primitives
+    Object Name,       | Example: "operator_lt"
+    Hook Object      | Example: See below
+)
+
+## Return Value
+null
+
+## Hook Object Example
+{
+    apply(old, thisArg, args) {
+        if (args[0].VALUE == 50) {
+            return null
+        }
+
+        return reflect.apply(old, thisArg, args)
+    }
+}
+
+-----------------------------------------
 
 # How to use scripts:
 1. Press Ctrl + Shift + I or F12.
