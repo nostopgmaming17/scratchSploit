@@ -86,7 +86,7 @@ null
             return null
         }
 
-        return reflect.apply(old, thisArg, args)
+        return Reflect.apply(old, thisArg, args)
     }
 }
 ```
