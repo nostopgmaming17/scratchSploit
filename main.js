@@ -251,6 +251,10 @@
     
         function restorePrimitive(name) {
             restore(primitives, name)
+
+            vm.runtime.targets.forEach(function(target) {
+                target.blocks.resetCache()
+            })
         }
     
         window.hookPrimitive = hookPrimitive
