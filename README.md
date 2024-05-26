@@ -12,7 +12,7 @@ Scripts in [scripts](https://github.com/nostopgmaming17/scratchSploit/tree/main/
 
 ## Renderer:
 window.renderer:
-```js
+```ts
   canvas <HTML canvas element> -> canvas used to render over scratch  
   defaultWidth <number> -> default canvas width  
   defaultHeight <number> -> default canvas height  
