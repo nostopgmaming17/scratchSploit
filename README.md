@@ -79,7 +79,7 @@ null
 ```
 
 ## Hook Object Example
-[text](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
+[JS Proxy documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
 ```js
 {
     apply(old, thisArg, args) {
