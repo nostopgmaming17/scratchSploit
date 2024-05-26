@@ -39,11 +39,13 @@ window.renderer:
 null
 
 ## Hook Function Example
+```js
 function(old) {
     return function(data, sequencer) {
         return old.apply(data, sequencer)
     }
 }
+```
 
 -----
 
@@ -60,6 +62,7 @@ function(old) {
 null
 
 ## Hook Object Example
+```js
 {
     apply(old, thisArg, args) {
         if (args[0].VALUE == 50) {
@@ -69,6 +72,7 @@ null
         return reflect.apply(old, thisArg, args)
     }
 }
+```
 
 -----------------------------------------
 
