@@ -143,9 +143,12 @@
                 hookp(vm.runtime._primitives,op,h)
                 break;
         }
+        vm.runtime.target.forEach(v=>v.blocks.resetCache());
     }
     const restoreop = function (op) {
-        return restore(vm.runtime._primitives[op]);
+        let r = restore(vm.runtime._primitives[op]);
+        vm.runtime.target.forEach(v=>v.blocks.resetCache());
+        return r;
     }
     const restore = function(o,n) {
         let f = o[n];
