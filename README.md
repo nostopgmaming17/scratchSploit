@@ -62,7 +62,7 @@ function(old) {
 
 -----
 
-# hookp
+# hookp (hook proxy)
 
 ## Arguments
 ```
