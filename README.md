@@ -12,16 +12,24 @@ Scripts in [scripts](https://github.com/nostopgmaming17/scratchSploit/tree/main/
 
 ## Renderer:
 window.renderer:
-```
+```js
   canvas <HTML canvas element> -> canvas used to render over scratch  
   defaultWidth <number> -> default canvas width  
   defaultHeight <number> -> default canvas height  
   canvasWidth <number> -> current canvas width  
-  canvasHeight <number> -> current canvas height  
-  addDrawCallback(callback : function) : returns the id of the callback -> adds the given callback to the callback list which is then called every frame | callbacks are called in the order they are in in the callback list
-  removeDrawCallback(id : number) : returns nothing                     -> removes the callback with the given id from the callback list  
-  frame <number> -> the current frame number (+1 every frame)  
-  scratchToScreenPosition(x : number, y : number) -> converts a position in scratch to a position inside the canvas  
+  canvasHeight <number> -> current canvas height
+
+  addDrawCallback(callback : function) -> returns the id of the callback
+                                       -> adds the given callback to the callback list which is then called every frame
+                                       -> callbacks are called in the order they are in in the callback list
+
+  removeDrawCallback(id : number) -> returns nothing
+                                  -> removes the callback with the given id from the callback list
+
+  frame <number> -> the current frame number (+1 every frame)
+
+  scratchToScreenPosition(x : number, y : number) -> converts a position in scratch to a position inside the canvas which is returned as an array
+
   ctx <canvas context object> -> the return value of canvas.getContext("2d")
 ```
 
