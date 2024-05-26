@@ -197,6 +197,64 @@
                 }
             });
         }
+
+        const primitives = window.vm.runtime._primitives
+    
+        // example callback:
+        /*
+        
+        hookPrimitive("motion_goto", function(x, y) {
+            return [x * 0.5, x * 0.5] // changed args
+        })
+    
+        OR
+    
+        hookPrimitive("motion_goto", function(x, y) {
+            return // will prevent the primitive from running
+        })
+        
+        */
+        function hookPrimitive(name, callback) {
+            var originalFunction = primitives[name]
+
+            hookp(primitives, name, {
+                apply(func, thisArg, args) {
+                    var callbackHookedArguments = callback.call(this, ...args)
+        
+                    if (callbackHookedArguments) {
+                        args = callbackHookedArguments
+                    } else {
+                        return
+                    }
+            
+                    return reflect.apply(func, thisArg, ...args)
+                }
+            })
+            /*
+            hook(primitives, name, function(...args) {
+                var callbackHookedArguments = callback.call(this, ...args)
+        
+                if (callbackHookedArguments) {
+                    args = callbackHookedArguments
+                } else {
+                    return
+                }
+        
+                return originalFunction.call(this, ...args)
+            })
+            */
+        
+            vm.runtime.targets.forEach(function(target) {
+                target.blocks.resetCache()
+            })
+        }
+    
+        function restorePrimitive(name) {
+            restore(primitives, name)
+        }
+    
+        window.hookPrimitive = hookPrimitive
+        window.restorePrimitive = restorePrimitive
     }
     hookp(Function.prototype,"bind",{
         apply(f, th, args) {
@@ -736,47 +794,4 @@
                 break;
         }
     })
-
-    var primitives = vm.runtime._primitives
-
-    // example callback:
-    /*
-    
-    hookPrimitive("motion_goto", function(x, y) {
-        return [x * 0.5, x * 0.5] // changed args
-    })
-
-    OR
-
-    hookPrimitive("motion_goto", function(x, y) {
-        return // will prevent the primitive from running
-    })
-    
-    */
-    function hookPrimitive(name, callback) {
-        var originalFunction = _primitives[name]
-    
-        hook(primitives, "name", function(...args) {
-            var callbackHookedArguments = callback.call(this, ...args)
-    
-            if (callbackHookedArguments) {
-                args = callbackHookedArguments
-            } else {
-                return
-            }
-    
-            return originalFunction.call(this, ...args)
-        })
-    
-        vm.runtime.targets.forEach(function(target) {
-            target.blocks.resetCache()
-        })
-    }
-
-    function restorePrimitive(name) {
-        restore(primitives, name)
-    }
-
-    window.hookPrimitive = hookPrimitive
-    window.restorePrimitive = restorePrimitive
 })();
