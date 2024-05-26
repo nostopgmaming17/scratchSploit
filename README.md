@@ -12,18 +12,86 @@ Scripts in [scripts](https://github.com/nostopgmaming17/scratchSploit/tree/main/
 
 ## Renderer:
 window.renderer:
+```
+  canvas <HTML canvas element> -> canvas used to render over scratch  
+  defaultWidth <number> -> default canvas width  
+  defaultHeight <number> -> default canvas height  
+  canvasWidth <number> -> current canvas width  
+  canvasHeight <number> -> current canvas height
 
-  canvas -> canvas used to render over scratch  
-  defaultWidth -> default canvas width  
-  defaultHeight -> default canvas height  
-  canvasWidth -> current canvas width  
-  canvasHeight -> current canvas height  
-  addDrawCallback(callback : function) : returns the id of the callback -> adds the given callback to the callback list which is then called every frame | callbacks are called in the order they are in in the callback list
-  removeDrawCallback(id : number) : returns nothing                     -> removes the callback with the given id from the callback list  
-  frame -> the current frame number (+1 every frame)  
-  scratchToScreenPosition -> converts a position in scratch to a position inside the canvas  
-  ctx -> the return value of canvas.getContext("2d")  
+  addDrawCallback(callback : function) -> returns the id of the callback
+                                       -> adds the given callback to the callback list which is then called every frame
+                                       -> callbacks are called in the order they are in in the callback list
 
+  removeDrawCallback(id : number) -> returns nothing
+                                  -> removes the callback with the given id from the callback list
+
+  frame <number> -> the current frame number (+1 every frame)
+
+  scratchToScreenPosition(x : number, y : number) -> converts a position in scratch to a position inside the canvas which is returned as an array
+
+  ctx <canvas context object> -> the return value of canvas.getContext("2d")
+```
+
+-----
+
+# hook
+
+## Arguments
+```
+(
+  Object Container, | Example: vm.runtime._primitives
+  Object Name,       | Example: "operator_lt"
+  Hook Function      | Example: See below
+)
+```
+
+## Return Value
+```js
+null
+```
+
+## Hook Function Example
+```js
+function(old) {
+    return function(data, sequencer) {
+        return old.apply(data, sequencer)
+    }
+}
+```
+
+-----
+
+# hookp
+
+## Arguments
+```
+(
+    Object Container, | Example: vm.runtime._primitives
+    Object Name,       | Example: "operator_lt"
+    Hook Object      | Example: See below
+)
+```
+
+## Return Value
+```js
+null
+```
+
+## Hook Object Example
+```js
+{
+    apply(old, thisArg, args) {
+        if (args[0].VALUE == 50) {
+            return null
+        }
+
+        return reflect.apply(old, thisArg, args)
+    }
+}
+```
+
+-----------------------------------------
 
 # How to use scripts:
 1. Press Ctrl + Shift + I or F12.
