@@ -134,6 +134,19 @@
         spoof.set(p,o[n]);
         o[n] = p;
     }
+    const hookop = function(op, h) {
+        switch(typeof(h)) {
+            case "function":
+                hook(vm.runtime._primitives,op,h)
+                break;
+            case "object":
+                hookp(vm.runtime._primitives,op,h)
+                break;
+        }
+    }
+    const restoreop = function (op) {
+        return restore(vm.runtime._primitives[op]);
+    }
     const restore = function(o,n) {
         let f = o[n];
         if (!spoof.has(f)) return false;
@@ -155,7 +168,9 @@
     }
     window.hook = hook;
     window.hookp = hookp;
+    window.hookop = hookop
     window.restore = restore;
+    window.restoreop = restoreop;
     window.getnative = getnative;
     function oninject() {
         const cloud = vm.runtime.ioDevices.cloud;
