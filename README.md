@@ -47,7 +47,7 @@ window.renderer:
 ```
 
 ## Return Value
-```
+```js
 null
 ```
 
@@ -74,7 +74,7 @@ function(old) {
 ```
 
 ## Return Value
-```
+```js
 null
 ```
 
