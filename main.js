@@ -214,7 +214,7 @@
         })
         
         */
-        function hookPrimitive(name, callback) {
+        function hookprimitive(name, callback) {
             var originalFunction = primitives[name]
 
             hookp(primitives, name, {
@@ -249,7 +249,7 @@
             })
         }
     
-        function restorePrimitive(name) {
+        function restoreprimitive(name) {
             restore(primitives, name)
 
             vm.runtime.targets.forEach(function(target) {
