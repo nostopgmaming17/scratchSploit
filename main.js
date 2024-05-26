@@ -219,15 +219,15 @@
 
             hookp(primitives, name, {
                 apply(func, thisArg, args) {
-                    var callbackHookedArguments = callback.call(this, ...args)
-        
+                    var callbackHookedArguments = callback(...args)
+                    
                     if (callbackHookedArguments) {
                         args = callbackHookedArguments
                     } else {
                         return
                     }
             
-                    return reflect.apply(func, thisArg, ...args)
+                    return reflect.apply(func, thisArg, args)
                 }
             })
             /*
