@@ -29,14 +29,18 @@ window.renderer:
 # hook
 
 ## Arguments
+```
 (
   Object Container, | Example: vm.runtime._primitives
   Object Name,       | Example: "operator_lt"
   Hook Function      | Example: See below
 )
+```
 
 ## Return Value
+```
 null
+```
 
 ## Hook Function Example
 ```js
@@ -52,14 +56,18 @@ function(old) {
 # hookp
 
 ## Arguments
+```
 (
     Object Container, | Example: vm.runtime._primitives
     Object Name,       | Example: "operator_lt"
     Hook Object      | Example: See below
 )
+```
 
 ## Return Value
+```
 null
+```
 
 ## Hook Object Example
 ```js
