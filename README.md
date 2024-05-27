@@ -11,7 +11,8 @@ Scripts in [scripts](https://github.com/nostopgmaming17/scratchSploit/tree/main/
 # Developer Documentation:
 
 ## Renderer:
-window.renderer:
+
+## window.renderer:
 ```
   canvas <HTML canvas element> -> canvas used to render over scratch  
   defaultWidth <number> -> default canvas width  
@@ -36,13 +37,14 @@ window.renderer:
 -----
 
 # hook
+Hooks an element in an object with the given function
 
 ## Arguments
 ```
 (
-  Object Container, | Example: vm.runtime._primitives
-  Object Name,       | Example: "operator_lt"
-  Hook Function      | Example: See below
+  Object Container, <object>   | Example: vm.runtime._primitives
+  Element Name, <string>       | Example: "operator_lt"
+  Hook Function <function>     | Example: See below
 )
 ```
 
@@ -62,14 +64,17 @@ function(old) {
 
 -----
 
-# hookp (hook proxy)
+# hookp
+Hooks an element in an object with a proxy
+
+[JS Proxy documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
 
 ## Arguments
 ```
 (
-    Object Container, | Example: vm.runtime._primitives
-    Object Name,       | Example: "operator_lt"
-    Hook Object      | Example: See below
+    Object Container, <object> | Example: vm.runtime._primitives
+    Element Name, <string>     | Example: "operator_lt"
+    Hook Object <proxy>        | Example: See below
 )
 ```
 
@@ -79,7 +84,6 @@ null
 ```
 
 ## Hook Object Example
-[JS Proxy documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
 ```js
 {
     apply(old, thisArg, args) {
@@ -90,6 +94,41 @@ null
         return Reflect.apply(old, thisArg, args)
     }
 }
+```
+
+-----
+
+# restore
+Restores a hooked element in an object back to its original value
+
+## Arguments
+```
+(
+    Object Container, <object> | Example: vm.runtime._primitives
+    Element Name, <string>     | Example: "operator_lt"
+)
+```
+
+## Return Value
+```
+null
+```
+
+-----
+
+# getglobal
+Gets the value of a global variable by its name
+
+## Arguments
+```
+(
+    Variable Name <string> | Example: Money
+)
+```
+
+## Return Value
+```js
+    <Number> or <String> or <Array>
 ```
 
 -----------------------------------------
