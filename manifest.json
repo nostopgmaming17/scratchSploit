@@ -1,11 +1,16 @@
 {
     "manifest_version": 3,
     "name": "Scratch sploit",
-    "version": "2.2",
+    "version": "2.3",
     "content_scripts": [
         {
             "matches": ["*://scratch.mit.edu/*"],
             "run_at":"document_start",
+            "js": ["api.js"],
+            "world": "MAIN"
+        },
+        {
+            "matches": ["*://scratch.mit.edu/*"],
             "js": ["main.js"],
             "world": "MAIN"
         },
