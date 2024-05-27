@@ -659,6 +659,20 @@
             }
         }
     }
+    window.global = function(name) {
+        const target = vm.runtime.targets[0];
+        for (let v in target.variables) {
+            if (target.variables[v].name == name)
+                return target.variables[v];
+        }
+    }
+    window.local = function(sprite, name) {
+        const target = typeof(sprite)=="object"?sprite:getsprite(sprite);
+        for (let v in target.variables) {
+            if (target.variables[v].name == name)
+                return target.variables[v];
+        }
+    }
     window.runfunc = function(target,name,args) {
         if (arguments.length < 3) return;
         const def = target.blocks._blocks[target.blocks._cache.procedureDefinitions[name]] || target.blocks._blocks[target.blocks.getProcedureDefinition(name)];
