@@ -1,7 +1,7 @@
 (()=>{
     const config = {speed:3, noclip: false};
-    restore(vm.runtime._primitives,"procedures_call");
-    hookp(vm.runtime._primitives,"procedures_call", {
+    restoreop("procedures_call");
+    hookop("procedures_call", {
         apply(f, th, args) {
             try{
                 if (args[1].thread.target.getName() == "Player" && args[0].mutation.proccode.includes("Try Move")) {
@@ -30,14 +30,30 @@
             return Reflect.apply(f, th, args);
         }
     });
-    restore(vm.runtime._primitives,"sensing_username");
-    hookp(vm.runtime._primitives,"sensing_username",{
+    restoreop("sensing_username");
+    hookop("sensing_username",{
         apply(f, th, args) {
             let ret = Reflect.apply(f, th, args);
             return ret + "griffpatch"; // bypasses anticheat (yes it actually exists and is running on other players devices)
         }
     });
-    vm.runtime.targets.forEach(v=>v.blocks.resetCache());
+    const cloudversion = global(cloudSymbol + " version");
+    restoreop("data_variable");
+    hookop("data_variable",{
+        apply(f, th, args) {
+            if (args[0].VARIABLE.id == "gameversion")
+                return cloudversion.value;
+            return Reflect.apply(f, th, args);
+        }
+    });
+    restoreop("sensing_of");
+    hookop("sensing_of",{
+        apply(f, th, args) {
+            if (args[0].PROPERTY == "gameversion")
+                return cloudversion.value;
+            return Reflect.apply(f, th, args);
+        }
+    });
     let pressed1 = false, pressed2 = false;
     setInterval(()=>{
         let inv = getglobal("INV");
