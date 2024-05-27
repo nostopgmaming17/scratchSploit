@@ -1,5 +1,7 @@
 (function() {
     "use strict";
+    // SCRATCHSPLOIT API
+    // You are free to use this as long as you credit me
     console.log("Loaded api");
     // renderer start
     var oldCanvas = document.getElementsByTagName("canvas")[0]
