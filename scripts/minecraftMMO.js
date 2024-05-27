@@ -10,7 +10,7 @@
                     if (config.noclip) {
 
                         setglobal("PLAYER X", Number(getglobal("PLAYER X")) + args[0][cargs[0]]);
-                        setglobal("PLAYER Y", Number(getglobal("PLAYER Y")) + vm.runtime.ioDevices.keyboard._keysPressed.includes("W")*2*config.speed - vm.runtime.ioDevices.keyboard._keysPressed.includes("S")*2*config.speed);
+                        setglobal("PLAYER Y", Number(getglobal("PLAYER Y")) + vm.runtime.ioDevices.keyboard._keysPressed.includes("W")*3*config.speed - vm.runtime.ioDevices.keyboard._keysPressed.includes("S")*2*config.speed);
                         const l = getlocal("Player","rewind");
                         if (l.length >= 400) {
                             while(l.length>398)
@@ -38,11 +38,14 @@
         }
     });
     const cloudversion = global(cloudSymbol + " version");
+    const breaking = global("BREAKING");
     restoreop("data_variable");
     hookop("data_variable",{
         apply(f, th, args) {
             if (args[0].VARIABLE.id == "gameversion")
                 return cloudversion.value;
+            else if (args[0].VARIABLE.id == breaking.id)
+                return vm.runtime.ioDevices.mouse._isDown * 100;
             return Reflect.apply(f, th, args);
         }
     });
