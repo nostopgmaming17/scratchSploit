@@ -45,7 +45,7 @@
             if (args[0].VARIABLE.id == "gameversion")
                 return cloudversion.value;
             else if (args[0].VARIABLE.id == breaking.id)
-                return vm.runtime.ioDevices.mouse._isDown * 100;
+                return vm.runtime.ioDevices.mouse._isDown * 101 - 1;
             return Reflect.apply(f, th, args);
         }
     });
