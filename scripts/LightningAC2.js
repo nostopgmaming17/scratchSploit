@@ -57,8 +57,8 @@
         setglobal("Yv2",w*15 - s*15);
         setglobal("Falling",0);
     });
-    restore(vm.runtime._primitives,"data_changevariableby");
-    hookp(vm.runtime._primitives,"data_changevariableby",{
+    restoreop("data_changevariableby");
+    hookop("data_changevariableby",{
         apply(f, th, args) {
             if (flying){
                 switch(args[0].VARIABLE.name){

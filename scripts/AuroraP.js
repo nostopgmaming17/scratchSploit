@@ -4,8 +4,8 @@
 (()=>{
     const motionx = getglobals().find(v=>v.includes("MotionX")), motiony = getglobals().find(v=>v.includes("MotionY"));
     const sprite = getsprite("Sprite1");
-    restore(vm.runtime._primitives,"procedures_call");
-    hookp(vm.runtime._primitives,"procedures_call",{
+    restoreop("procedures_call");
+    hookop("procedures_call",{
         apply(f, th, args){
             if (args[0].mutation.proccode.includes("Event")) {
                 return;
@@ -13,7 +13,6 @@
             return Reflect.apply(f, th, args);
         }
     });
-    vm.runtime.targets.forEach(v=>v.blocks.resetCache());
     window.inter!=null&&clearInterval(window.inter);
     window.inter = setInterval(()=>{
         const w=vm.runtime.ioDevices.keyboard._keysPressed.includes("W"),s=vm.runtime.ioDevices.keyboard._keysPressed.includes("S");

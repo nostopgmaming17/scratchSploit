@@ -1,4 +1,71 @@
 (()=>{
+    const dmul = global("_DMUL");
+    const blockdata = global("_BLOCK_DATA");
+    const changes = global("CHG GIDX");
+    const owner = global("OWNER");
+    const age = global("AGE");
+    const grid = global("GRID");
+    const pid = global("PLAYER ID");
+    const tick = global("TICK");
+    const changescount = global("CHANGES #");
+    function getBlockData(tile) {
+        const data = blockdata.value;
+        const ret = {};
+        for(let i=0;i<dmul.value-1;i++) {
+            const val = data[tile*dmul.value + i];
+            ret[data[i]] = val;
+            ret[i + 1] = val;
+        }
+        return ret;
+    }
+    function blockTierByName(name) {
+        const data = blockdata.value;
+        for(let i=Number(dmul.value);i<data.length;i+=Number(dmul.value)) {
+            if (name.toLowerCase() == data[i + 1].toLowerCase())
+                return data[i];
+        }
+    }
+    function blockIndexByName(name) {
+        const data = blockdata.value;
+        for(let i=Number(dmul.value);i<data.length;i+=Number(dmul.value)) {
+            if (name.toLowerCase() == data[i + 1].toLowerCase())
+                return i;
+        }
+    }
+    function recordChange(idx, tile) {
+        const found = changes.value.findIndex(v=>v==idx);
+        if (found > 0) {
+            changes.value.splice(found,1);
+            if (found < changescount.value) {
+                changescount.value--;
+            }
+        }
+        changes.value[changescount.value] = idx;
+        owner.value[idx - 1] = pid.value;
+        age.value[idx - 1] = tick.value;
+        grid.value[idx - 1] = tile;
+    }
+    function replaceBlock(idx, tile) {
+        if (getBlockData(tile)[20] == "G") {
+            getglobal("ACTIVATE").push(idx);
+        }
+        recordChange(idx, tile);
+        getglobal("LIGHT MOD").unshift(idx);
+        broadcast("Check Crafting Recipes");
+    }
+    function blockDataAt(idx) {
+        return getBlockData(Number(grid.value[idx - 1]));
+    }
+    function blockAt(idx) {
+        return Number(grid.value[idx - 1]);
+    }
+    window.getBlockData = getBlockData;
+    window.blockTierByName = blockTierByName;
+    window.blockIndexByName = blockIndexByName;
+    window.recordChange = recordChange;
+    window.replaceBlock = replaceBlock;
+    window.blockDataAt = blockDataAt;
+    window.blockAt = blockAt;
     const config = {speed:3, noclip: false};
     restoreop("procedures_call");
     hookop("procedures_call", {
@@ -73,6 +140,7 @@
             setlocal("Player","speed y",15);
         }
         setglobal("BREAKING",Math.max(getglobal("BREAKING"),100));
+        setglobal("LAND CLAIMS", []);
         inv[0]=117;
         invC[0]=1;
         window.inv = inv;

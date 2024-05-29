@@ -8,8 +8,8 @@
     pattern = patternscan(vm.runtime.targets[1],["procedures_definition","looks_say",0,"input.custom_block","="])
     const flag = pattern[0][2].mutation.proccode;
     const sprite = getsprite("Sprite1");
-    restore(vm.runtime._primitives,"procedures_call");
-    hookp(vm.runtime._primitives,"procedures_call",{
+    restoreop("procedures_call");
+    hookop("procedures_call",{
         apply(f, th, args){
             if (args[0].mutation.proccode == flag) {
                 return;

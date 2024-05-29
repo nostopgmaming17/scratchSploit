@@ -1261,8 +1261,8 @@
         }
     }
     const CONFIG = {speed:1, jump:1};
-    restore(vm.runtime._primitives, "procedures_call");
-    hook(vm.runtime._primitives, "procedures_call", old => {
+    restoreop("procedures_call");
+    hookop("procedures_call", old => {
         return function (b, th) {
             try {
                 let cargs = JSON.parse(b.mutation.argumentids);
@@ -1279,8 +1279,8 @@
             return old.apply(this, arguments)
         }
     });
-    restore(vm.runtime._primitives, "data_setvariableto");
-    hook(vm.runtime._primitives, "data_setvariableto", old => {
+    restoreop("data_setvariableto");
+    hookop("data_setvariableto", old => {
         const jumps = new WeakMap; // this isn't here for caching its bc if i set b.VALUE to x2 value then it will stay like that (if its constant value) which is bad
         return function (b, th) {
             if (b.VARIABLE.name === "@Player SY" && th.thread.target.getName() === "Game") {
@@ -1295,9 +1295,6 @@
             }
             return old.apply(this, arguments);
         }
-    });
-    vm.runtime.targets.forEach(v=>{
-        v.blocks.resetCache();
     });
     vm.runtime.requestBlocksUpdate();
 })();

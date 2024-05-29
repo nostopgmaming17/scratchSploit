@@ -3,8 +3,8 @@
 (()=>{
     const lac = vm.runtime.targets[2];
     const plr = vm.runtime.targets[3];
-    restore(vm.runtime._primitives,"event_broadcast");
-    hook(vm.runtime._primitives,"event_broadcast",old=>{
+    restoreop("event_broadcast");
+    hookop("event_broadcast",old=>{
         return function(b, th) {
             if (b.BROADCAST_OPTION.name === "lac.setback" || b.BROADCAST_OPTION.name == "lac.ban")
                 return;
@@ -12,8 +12,8 @@
         }
     })
     
-    restore(vm.runtime._primitives,"procedures_call");
-    hook(vm.runtime._primitives,"procedures_call",old=>{
+    restoreop("procedures_call");
+    hookop("procedures_call",old=>{
         return function(b,th) {
             if (th.target.blocks._blocks !== lac.blocks._blocks)
                 return old.apply(this,arguments);
@@ -23,8 +23,8 @@
             return old.apply(this,arguments);
         }
     });
-    restore(vm.runtime._primitives,"data_setvariableto");
-    hook(vm.runtime._primitives,"data_setvariableto",old=>{
+    restoreop(vm.runtime._primitives,"data_setvariableto");
+    hookop("data_setvariableto",old=>{
         return function(b,th) {
             if (b.VARIABLE.name == "Yv2" && b.VALUE < 0) {
                 return;
@@ -41,7 +41,6 @@
             return old.apply(this,arguments);
         }
     });
-    vm.runtime.targets.forEach(v=>v.blocks.resetCache());
     runfunc(lac,"flag %s %s %s %s %s %s %s",["Loaded","Loaded up disabler",0,0,0,0,0])
 })();
 
@@ -60,8 +59,8 @@
         setglobal("Yv2",w*15 - s*15);
         setglobal("Falling",0);
     });
-    restore(vm.runtime._primitives,"data_changevariableby");
-    hookp(vm.runtime._primitives,"data_changevariableby",{
+    restoreop("data_changevariableby");
+    hookop("data_changevariableby",{
         apply(f, th, args) {
             if (flying){
                 switch(args[0].VARIABLE.name){
@@ -75,5 +74,4 @@
             return Reflect.apply(f, th, args);
         }
     });
-    vm.runtime.targets.forEach(v=>v.blocks.resetCache());
 })();
