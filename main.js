@@ -21,26 +21,27 @@
                 break;
             case "injectSprite":
                 spritefile.onchange = function(e){
-                    const stream = e.target.files[0].stream();
-                    const reader = stream.getReader();
-                    reader.read().then(v=>{
-                        reader.releaseLock();
-                        vm.addSprite(v.value);
-                    }).catch(e=>{
-                        reader.releaseLock();
+                    console.log(e.target,e.target.files)
+                    const files = e.target.files;
+                    Array.from(files).forEach(file=>{
+                        const reader = new FileReader;
+                        reader.onload = ()=>{
+                            vm.addSprite(reader.result);
+                        }
+                        reader.readAsArrayBuffer(file);
                     });
                 }
                 spritefile.click();
                 break;
             case "injectJS":
                 jsfile.onchange = function(e){
-                    const stream = e.target.files[0].stream();
-                    const reader = stream.getReader();
-                    reader.read().then(v=>{
-                        reader.releaseLock();
-                        eval(String.fromCharCode(...Array.from(v.value)));
-                    }).catch(e=>{
-                        reader.releaseLock();
+                    const files = e.target.files;
+                    Array.from(files).forEach(file=>{
+                        const reader = new FileReader;
+                        reader.onload = ()=>{
+                            eval(reader.result);
+                        }
+                        reader.readAsText(file);
                     });
                 }
                 jsfile.click();
