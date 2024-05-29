@@ -268,24 +268,22 @@
                 return m.get(this);
             },
             set(v) {
-                if (Reflect.getOwnPropertyDescriptor(this,"sequencer") !== undefined && window.thread != this) {
+                if (reflect.getOwnPropertyDescriptor(this,"sequencer") !== undefined && window.thread != this) {
                     window.thread = this;
                 }
                 return m.set(this, v);
             }
         });
-        if (location.pathname.split("/").includes("editor")) {
-            hookp(Object,"defineProperty",{
-                apply(f, th, args) {
-                    try{
-                        if (args[1] == "prototype" && args[2].writable === false && args[0].prototype._sendCloudData != null) {
-                            window.providerconstructor = args[0];
-                        }
-                    }catch(e){}
-                    return Reflect.apply(f, th, args);
-                }
-            })
-        }
+        hookp(Object,"defineProperty",{
+            apply(f, th, args) {
+                try{
+                    if (args[1] == "prototype" && args[2].writable === false && args[0].prototype._sendCloudData != null) {
+                        window.providerconstructor = args[0];
+                    }
+                }catch(e){}
+                return reflect.apply(f, th, args);
+            }
+        });
     })();
     window.sleep = async ms => {
         return new Promise(resolve => setTimeout(resolve,ms));
@@ -698,8 +696,8 @@
             apply(f, self, args) {
                 delete self.popStack;
                 if (self.stack.length == 2)
-                    Reflect.apply(f, th, args);
-                return Reflect.apply(f, th, args);
+                    reflect.apply(f, th, args);
+                return reflect.apply(f, th, args);
             }
         });
         thread.thread = th;
