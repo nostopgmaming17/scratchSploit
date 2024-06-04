@@ -219,8 +219,8 @@
         var postponedFunctions = []
         var frame = 0
         
-        window.runnextframe = function(func, waitFrames = 1) {
-            posponedFunctions.push({
+        window.runNextFrame = function(func, waitFrames = 1) {
+            postponedFunctions.push({
                 func: func,
                 wait: waitFrames,
                 start: frame
@@ -237,7 +237,7 @@
                     }
                 }
     
-                return old.call(...args)
+                return old.call(this, ...args)
             }
         })
     }
