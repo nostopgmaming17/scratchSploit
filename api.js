@@ -215,7 +215,33 @@
                 }
             });
         }
+
+        var postponedFunctions = []
+        var frame = 0
+        
+        window.runNextFrame = function(func, waitFrames = 1) {
+            posponedFunctions.push({
+                func: func,
+                wait: waitFrames,
+                start: frame
+            })
+        }
+    
+        hook(vm.runtime, "_step", function(old) {
+            return function(...args) {
+                frame++
+                for (var i = 0; i < postponedFunctions.length; i++) {
+                    var data = postponedFunctions[i]
+                    if (frame >= data.start + data.wait) {
+                        data.func()
+                    }
+                }
+    
+                return old.call(...args)
+            }
+        })
     }
+    
     hookp(Function.prototype,"bind",{
         apply(f, th, args) {
             try{
@@ -720,29 +746,4 @@
                 return th.stackFrames[i];
         }
     };
-
-    var postponedFunctions = []
-    var frame = 0
-    
-    window.runNextFrame = function(func, waitFrames = 1) {
-        posponedFunctions.push({
-            func: func,
-            wait: waitFrames,
-            start: frame
-        })
-    }
-
-    hook(vm.runtime, "_step", function(old) {
-        return function(...args) {
-            frame++
-            for (var i = 0; i < postponedFunctions.length; i++) {
-                var data = postponedFunctions[i]
-                if (frame >= data.start + data.wait) {
-                    data.func()
-                }
-            }
-
-            return old.call(...args)
-        }
-    })
 })();
