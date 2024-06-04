@@ -234,6 +234,7 @@
                     var data = postponedFunctions[i]
                     if (frame >= data.start + data.wait) {
                         data.func()
+                        postponedFunctions.splice(i, 1)
                     }
                 }
     
