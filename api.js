@@ -219,7 +219,7 @@
         var postponedFunctions = []
         var frame = 0
         
-        window.runNextFrame = function(func, waitFrames = 1) {
+        window.runnextframe = function(func, waitFrames = 1) {
             posponedFunctions.push({
                 func: func,
                 wait: waitFrames,
