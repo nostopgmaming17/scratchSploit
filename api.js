@@ -215,7 +215,34 @@
                 }
             });
         }
+
+        var postponedFunctions = []
+        var frame = 0
+        
+        window.runNextFrame = function(func, waitFrames = 1) {
+            postponedFunctions.push({
+                func: func,
+                wait: waitFrames,
+                start: frame
+            })
+        }
+    
+        hook(vm.runtime, "_step", function(old) {
+            return function(...args) {
+                frame++
+                for (var i = 0; i < postponedFunctions.length; i++) {
+                    var data = postponedFunctions[i]
+                    if (frame >= data.start + data.wait) {
+                        data.func()
+                        postponedFunctions.splice(i, 1)
+                    }
+                }
+    
+                return old.call(this, ...args)
+            }
+        })
     }
+    
     hookp(Function.prototype,"bind",{
         apply(f, th, args) {
             try{
