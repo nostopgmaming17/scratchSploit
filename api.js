@@ -237,12 +237,10 @@
             apply(f, th, args) {
                 try {
                     if (args[0].prototype.connectToCloud != null) {
-                        console.warn("FOUND COMPONENT", args[0]);
                         let instance;
                         hookp(args[0].prototype, "componentDidMount", {
                             apply(f, th, cargs) {
                                 instance = th;
-                                console.log("HEY");
                                 args[0].prototype.componentDidMount = f;
                                 return reflect.apply(f, th, cargs);
                             }
@@ -251,7 +249,6 @@
                             args[0].prototype.shouldConnect = () => true;
                             args[0].prototype.shouldDisconnect = () => false;
                             args[0].prototype.canUseCloud = () => true;
-                            args[0].prototype.disconnectFromCloud = () => { };
                             if (!instance.isConnected()) {
                                 instance.connectToCloud();
                             }
