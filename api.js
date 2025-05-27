@@ -194,7 +194,6 @@
         console.log("%cSuccessfully logged VM & Have fun trolling and shit (Unpack extension to auto-inject)", "color: #ff4d36; font-size:200%");
         restore(Function.prototype, "bind");
         window.vm = vm;
-        oninject();
     }
     hookp(Function.prototype, "toString", {
         apply(f, th, args) {
