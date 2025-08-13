@@ -472,14 +472,18 @@
             let match = true;
             const blockA = [];
             for (let i = 0; i < opcodes.length; i++) {
-                if (typeof (opcodes[i]) == "string" && !opcodes[i].toLowerCase().startsWith("input.") && opcodes[i] != "*" && opcodes[i] != "*^" && opcodes[i] != "none") blockA.push(cblock);
-                if (opcodes[i] == "^") {
-                    cblock = blocks[cblock.parent];
-                    continue;
-                }
+                if (typeof (opcodes[i]) == "string" && !opcodes[i].toLowerCase().startsWith("input.") && opcodes[i] != "*" && opcodes[i] != "*^" && opcodes[i] != "^" && opcodes[i] != "none") blockA.push(cblock);
                 if (cblock == null) {
                     if (opcodes[i] != "none")
                         match = false;
+                    break;
+                }
+                if (opcodes[i] == "^") {
+                    if (cblock.parent != null) {
+                        cblock = blocks[cblock.parent];
+                        continue;
+                    }
+                    match = false;
                     break;
                 }
                 if (opcodes[i] == "*") {
@@ -526,7 +530,7 @@
                         } else if (opcodes[i + 1] == "^") {
                             i++;
                             cblock = blocks[cblock.parent];
-                        } else if (opcodes[i + 1] != "*" && opcodes[i + 1] != "*^")
+                        } else if (opcodes[i + 1] != "*" && opcodes[i + 1] != "*^" && opcodes[i + 1] != "^")
                             cblock = blocks[cblock.next];
                         continue;
                     } else {
@@ -577,7 +581,7 @@
                         } else if (opcodes[i + 1] == "^") {
                             i++;
                             cblock = blocks[cblock.parent];
-                        } else if (opcodes[i + 1] != "*" && opcodes[i + 1] != "*^")
+                        } else if (opcodes[i + 1] != "*" && opcodes[i + 1] != "*^" && opcodes[i + 1] != "^")
                             cblock = blocks[cblock.next];
                         continue;
                     } else {
@@ -616,7 +620,7 @@
                     cblock = blockA[opcodes[i + 1]];
                     continue;
                 }
-                if (opcodes[i + 1] != "*" && opcodes[i + 1] != "*^")
+                if (opcodes[i + 1] != "*" && opcodes[i + 1] != "*^" && opcodes[i + 1] != "^")
                     cblock = blocks[cblock.next];
             }
             if (match)
