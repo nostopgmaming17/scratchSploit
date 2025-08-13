@@ -668,9 +668,10 @@
         const th = vm.runtime._pushThread(def.id, target);
         hookp(th, "popStack", {
             apply(f, self, args) {
-                delete self.popStack;
-                if (self.stack.length == 2)
+                if (self.stack.length == 2) {
                     reflect.apply(f, th, args);
+                    delete self.popStack;
+                }
                 return reflect.apply(f, th, args);
             }
         });
