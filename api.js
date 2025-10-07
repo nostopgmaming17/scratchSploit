@@ -193,7 +193,7 @@
         const app = document.getElementById("app");
         if (app != null ) {
             const key = Object.getOwnPropertyNames(document.getElementById("app")).find(v=>typeof app[v] == "object");
-            vm = app?.[key]?.child?.pendingProps?.store?.getState()?.scratchGui?.vm;
+            vm = app?.[key]?.child?.pendingProps?.store?.getState?.()?.scratchGui?.vm;
         }
     })();
     if (vm != null) {
