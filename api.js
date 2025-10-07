@@ -189,9 +189,15 @@
             return reflect.apply(f, th, args);
         }
     });
-    vm = document.getElementById('app')?._reactRootContainer?._internalRoot?.current?.child?.pendingProps?.store?.getState()?.scratchGui?.vm;
+    (()=>{
+        const app = document.getElementById("app");
+        if (app != null ) {
+            const key = Object.getOwnPropertyNames(document.getElementById("app")).find(v=>typeof app[v] == "object");
+            vm = app?.[key]?.child?.pendingProps?.store?.getState()?.scratchGui?.vm;
+        }
+    })();
     if (vm != null) {
-        console.log("%cSuccessfully logged VM & Have fun trolling and shit (Unpack extension to auto-inject)", "color: #ff4d36; font-size:200%");
+        console.log("%cSuccessfully logged VM & Have fun trolling and shit (Unpack extension to auto-inject and enable cloud in editor)", "color: #ff4d36; font-size:200%");
         restore(Function.prototype, "bind");
         window.vm = vm;
     }
@@ -236,6 +242,7 @@
             apply(f, th, args) {
                 try {
                     if (args[0].prototype.connectToCloud != null) {
+                        debugger;
                         let instance;
                         hookp(args[0].prototype, "componentDidMount", {
                             apply(f, th, cargs) {
